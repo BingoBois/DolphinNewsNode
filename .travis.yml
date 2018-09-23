@@ -6,3 +6,4 @@ script:
   - npm install
   - npm -g install typescript
   - tsc
+  - npm test
