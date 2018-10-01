@@ -58,6 +58,8 @@ CREATE TABLE `comment` (
 
 `content` varchar(9999) NOT NULL,
 
+`time` varchar(255) NOT NULL,
+
 `fk_user` int(11) NOT NULL,
 
 `fk_post` int(11) NOT NULL,
