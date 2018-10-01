@@ -5,7 +5,7 @@ afterAll(() => {
 });
 
 test('bingotest', () => {
-  return expect(selectFromName('bingomanden')).resolves.toBe(2);
+  return expect(selectFromName('bingomanden')).resolves.toBe(1);
 
   // Can also be written as:
   // selectFromName('bingomanden').then((id) => {
