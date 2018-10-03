@@ -39,7 +39,6 @@ export function createPost(postObject: PostObject){
   
 }
 
-
 export function closeConnection(){
   connection.end();
 }
