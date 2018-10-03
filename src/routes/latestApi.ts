@@ -3,9 +3,9 @@ const router: Router = Router();
 
 router.get('/', (req: Request, res: Response) => {
   res.json({
-    message: 'Hello and welcome to my guide',
+    message: 'Buy 12 bread',
     error: undefined
 })
 });
 
-export const api: Router = router;
+export const latestApi: Router = router;
