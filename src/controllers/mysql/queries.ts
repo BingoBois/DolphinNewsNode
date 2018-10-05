@@ -39,6 +39,18 @@ export function createPost(postObject: PostObject){
   
 }
 
+//Needs to have the correct FROM destination
+export function latestDigestedPostNumber() {
+  return new Promise((resolve) => {
+    connection.query('SELECT COUNT(*) as total FROM post', (error, results, fields) => {
+      let latestDigestedNumber = results[0].total;
+      
+      //console.log(Number(latestDigestedNumber));
+      resolve(latestDigestedNumber);
+    })
+  });
+}
+
 export function closeConnection(){
   connection.end();
 }
