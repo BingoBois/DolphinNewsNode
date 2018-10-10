@@ -40,12 +40,11 @@ export function createPost(postObject: PostObject){
 }
 
 //Needs to have the correct FROM destination
+//Currently just finds the highest (max) ID and returns it, might need to be readjusted in the future.
 export function latestDigestedPostNumber() {
   return new Promise((resolve) => {
-    connection.query('SELECT COUNT(*) as total FROM post', (error, results, fields) => {
-      let latestDigestedNumber = results[0].total;
-      
-      //console.log(Number(latestDigestedNumber));
+      connection.query('SELECT MAX(id) as id FROM post', (error, results, fields) => {
+      let latestDigestedNumber = results[0].id;
       resolve(latestDigestedNumber);
     })
   });
