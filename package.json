@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "amqplib": "^0.5.2",
+    "body-parser": "^1.18.3",
     "mysql": "^2.16.0"
   },
   "peerDependencies": {
