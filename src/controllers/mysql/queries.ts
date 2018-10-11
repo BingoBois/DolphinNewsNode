@@ -2,6 +2,7 @@ import mysql, { Connection } from 'mysql';
 import { PostObject } from '../../types/post'
 
 import connection from './connection';
+import { resolve } from 'url';
 
 export function selectFromName(name: string) {
   return new Promise((resolve) => {
@@ -10,6 +11,25 @@ export function selectFromName(name: string) {
       resolve(id);
     })
   });
+}
+
+export function selectUserFromID(id: number){
+  return new Promise((resolve) =>{
+    connection.query('SELECT id,username,email,karma,role FROM user WHERE id =?', [id], (error, results, fields) => {
+      let user = results;
+      resolve(user);
+    })
+  })
+}
+
+export function selectAllUsers(){
+  return new Promise((resolve)=>{
+    connection.query('SELECT id,username,email,karma,role from user', (error, results, fields)=>{
+      let users = results;
+      resolve(users);
+    })
+
+  })
 }
 
 export function createPost(postObject: PostObject){
@@ -43,7 +63,7 @@ export function createPost(postObject: PostObject){
 //Currently just finds the highest (max) ID and returns it, might need to be readjusted in the future.
 export function latestDigestedPostNumber() {
   return new Promise((resolve) => {
-      connection.query('SELECT MAX(id) as id FROM post', (error, results, fields) => {
+      connection.query('SELECT * FROM user ORDER BY id DESC LIMIT 1', (error, results, fields) => {
       let latestDigestedNumber = results[0].id;
       resolve(latestDigestedNumber);
     })
