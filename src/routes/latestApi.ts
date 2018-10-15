@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express'
-import {latestDigestedPostNumber} from '../controllers/mysql/queries';
+import {latestDigestedPostNumber} from '../controllers/mysql/queries/queries';
 import { resolve } from 'url';
 const router: Router = Router();
 

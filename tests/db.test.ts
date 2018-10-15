@@ -1,5 +1,5 @@
-import { selectFromName, closeConnection } from '../src/controllers/mysql/queries';
-
+import {  closeConnection } from '../src/controllers/mysql/queries/queries';
+import { selectFromName} from '../src/controllers/mysql/queries/userQueries';
 afterAll(() => {
   closeConnection();
 });

@@ -2,13 +2,14 @@ import express = require("express");
 import { api } from "./routes/api";
 import { latestApi } from "./routes/latestApi";
 import {status} from "./routes/statusApi";
-import {user} from './routes/userApi';
+import {userApi} from './routes/userApi';
 import { PostObject } from './types/post';
-import { createPost,  } from './controllers/mysql/queries';
+import { createPost,  } from './controllers/mysql/queries/queries';
 import { authRouter } from "./routes/auth";
+import {postsAndCommentsApi} from './routes/postAndCommentsApi';
+import {commentsApi} from './routes/commentsApi';
 import bodyParser = require("body-parser");
 import { postRouter } from "./routes/post";
-const bodyParser = require('body-parser'); 
 const { rabbitReceive } = require('./controllers/rabbitmq');
 const app = express();
 import { SetServerStatus } from './controllers/serverstatus';
@@ -31,7 +32,9 @@ app.use('/latest', latestApi);
 app.use('/auth', authRouter);
 app.use('/post', postRouter)
 app.use('/status', status);
-app.use('/user',user);
+app.use('/user', userApi);
+app.use('/postandcomments', postsAndCommentsApi);
+app.use('/comment', commentsApi);
 
 //Set Server status upon startup
 SetServerStatus("Alive");
