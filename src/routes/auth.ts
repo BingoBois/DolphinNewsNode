@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
 import UserObject from '../types/user';
-import { createUser, getUser } from '../controllers/mysql/queries'
+import { createUser, getUser } from '../controllers/mysql/queries/queries'
 
 const router: Router = Router();
 
