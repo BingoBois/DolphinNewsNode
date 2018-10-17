@@ -1,11 +1,11 @@
 import { Request, Response, Router } from 'express'
-import {selectAllComments, selectGetAllComments_With_Votes} from '../controllers/mysql/queries/commentsQueries';
+import {selectAllComments, selectGetAllCommentsWithVotes} from '../controllers/mysql/queries/commentsQueries';
 const router: Router = Router();
 
 //Get all comments with 
 router.get('/get/all/withVote', (req, res) =>{
     
-    selectGetAllComments_With_Votes().then(resu => {
+    selectGetAllCommentsWithVotes().then(resu => {
       res.json({
         Comments: resu
       })

@@ -100,8 +100,7 @@ export function vote(vote: Vote){
   });
 }
 
-//Needs to have the correct FROM destination
-//Currently just finds the highest (max) ID and returns it, might need to be readjusted in the future.
+//Retrieves the latest (successfully) digested data
 export function latestDigestedPostNumber() {
   return new Promise((resolve) => {
       connection.query('SELECT * FROM user ORDER BY id DESC LIMIT 1', (error, results, fields) => {

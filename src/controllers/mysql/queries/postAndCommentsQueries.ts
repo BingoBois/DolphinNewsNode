@@ -2,8 +2,8 @@ import { PostObject } from '../../../types/post'
 import connection from '../connection';
 import { resolve } from 'url';
 
-
-export function selectAllPostAndComments_ByUser_name(username:string){
+//Retrieves all post and comments by Username
+export function selectAllContentByUsername(username:string){
     return new Promise((resolve) => {
     connection.query('SELECT user.id as userID, user.username AS user, comment.`content` AS usercomment, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postID, post.title as postTitle, post.`url`, post.`time` as postTime '
     + 'FROM user '+
@@ -17,8 +17,8 @@ export function selectAllPostAndComments_ByUser_name(username:string){
     })
   }
 
-
-export function selectAllPostAndComments_ByUser_id(userid:number){
+//Retrieves all post and comments by User ID
+export function selectAllContentByUserId(userid:number){
     return new Promise((resolve) => {
     connection.query('SELECT user.id as userID, user.username AS user, comment.`content` AS usercomment, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postID, post.title as postTitle, post.`url`, post.`time` as postTime '
     + 'FROM user '+
@@ -32,7 +32,8 @@ export function selectAllPostAndComments_ByUser_id(userid:number){
     })
   }
   
-  export function selectAllPostAndComments_ByPost_id(postid:number){
+  //Retrieves all the content by Post iD
+  export function selectAllContentByPostId(postid:number){
     return new Promise((resolve) => {
     connection.query('SELECT user.id as userID, user.username AS user, comment.`content` AS usercomment, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postID, post.title as postTitle, post.`url`, post.`time` as postTime '
     + 'FROM user '+
@@ -46,7 +47,8 @@ export function selectAllPostAndComments_ByUser_id(userid:number){
     })
   }
   
-  export function selectAllPostAndComments_ByPost_title(postTitle:string){
+   //Retrieves all the content by Post Title
+  export function selectAllContentByPostTitle(postTitle:string){
     return new Promise((resolve) => {
     connection.query('SELECT user.id as userID, user.username AS user, comment.`content` AS usercomment, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postID, post.title as postTitle, post.`url`, post.`time` as postTime '
     + 'FROM user '+

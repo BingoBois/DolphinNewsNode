@@ -2,6 +2,7 @@ import { PostObject } from '../../../types/post'
 import connection from '../connection';
 import { resolve } from 'url';
 
+//Retrives a specific user based on username
 export function selectFromName(name: string) {
     return new Promise((resolve) => {
       connection.query('SELECT * FROM user WHERE username = ?', [name], (error, results, fields) => {
@@ -11,6 +12,7 @@ export function selectFromName(name: string) {
     });
   }
   
+  //Retrives a specific user based on user id
   export function selectUserFromID(id: number){
     return new Promise((resolve) =>{
       connection.query('SELECT id,username,email,karma,role FROM user WHERE id =?', [id], (error, results, fields) => {
@@ -20,7 +22,8 @@ export function selectFromName(name: string) {
     })
   }
   
-  export function selectUsers_With_Above_Or_Equal_Karma_Points(karma: number){
+  //Retrives the users with equal-to or above Karma points
+  export function selectUsersAboveKarma(karma: number){
     return new Promise((resolve) =>{
       connection.query('SELECT id,username,email,karma,role FROM user WHERE karma >=?', [karma], (error, results, fields) => {
         let user = results;
@@ -29,7 +32,8 @@ export function selectFromName(name: string) {
     })
   }
   
-  export function selectUsers_With_Below_Or_Equal_Karma_Points(karma: number){
+  //Retrives the users with equal-to or below Karma points
+  export function selectUsersBelowKarma(karma: number){
     return new Promise((resolve) =>{
       connection.query('SELECT id,username,email,karma,role FROM user WHERE karma <=?', [karma], (error, results, fields) => {
         let user = results;
@@ -38,6 +42,7 @@ export function selectFromName(name: string) {
     })
   }
   
+  //Retrieves all users (But no passwords!)
   export function selectAllUsers(){
     return new Promise((resolve)=>{
       connection.query('SELECT id,username,email,karma,role from user', (error, results, fields)=>{
@@ -48,6 +53,7 @@ export function selectFromName(name: string) {
     })
   }
   
+   //Retrieves all users with role of "admin" (But no passwords!)
   export function selectAllAdmins(){
     return new Promise((resolve)=>{
       connection.query('SELECT id,username,email,karma,role from user WHERE role ="admin"', (error, results, fields)=>{
@@ -58,6 +64,7 @@ export function selectFromName(name: string) {
     })
   }
   
+  //Retrieves all users with role of "member" (But no passwords!)
   export function selectAllMembers(){
     return new Promise((resolve)=>{
       connection.query('SELECT id,username,email,karma,role from user WHERE role ="member"', (error, results, fields)=>{

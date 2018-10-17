@@ -4,8 +4,8 @@ import { resolve } from 'url';
 
 
 
-
-export function selectAllUsers_And_Show_Posts_And_CommentAmount(){
+//Displays all users and show their post and commentamount for the specific post
+export function selectSpecificUsersContentCount(){
     return new Promise((resolve)=>{
       connection.query('SELECT post.id as postId, post.title AS userpost, user.username AS user, COUNT(comment.`fk_post`) as NumberOfComments,  post.url, post.time' 
      + ' FROM user '
@@ -19,7 +19,8 @@ export function selectAllUsers_And_Show_Posts_And_CommentAmount(){
     })
   }
   
-  export function selectAllUsers_And_Show_Posts(){
+  //Display all users and corensponding post
+  export function selectAllUsersAndPosts(){
     return new Promise((resolve)=>{
       connection.query('SELECT user.username AS user, post.title AS userpost, post.id as postId, post.url FROM user JOIN post ON user.id = post.fk_user'
       , (error, results, fields)=>{
@@ -28,8 +29,9 @@ export function selectAllUsers_And_Show_Posts_And_CommentAmount(){
       })
     })
   }
-  
-  export function selectUser_ByID_Show_Posts(id: number){
+
+  //Display all the post by a specific user id
+  export function selectUserIdFromPost(id: number){
     return new Promise((resolve) => {
       connection.query('SELECT user.username AS user, post.title AS userpost, post.id as postId, post.url FROM user JOIN post ON user.id = post.fk_user WHERE user.id =?'
       ,[id], (error, results, fields) => {
@@ -39,7 +41,8 @@ export function selectAllUsers_And_Show_Posts_And_CommentAmount(){
     })
   }
   
-  export function selectUser_ByName_Show_Posts(name: string){
+  //Display all the post by a specific user name
+  export function selectUsernameFromPosts(name: string){
     return new Promise((resolve) => {
       connection.query('SELECT user.username AS user, post.title AS userpost, post.id as postId, post.url FROM user JOIN post ON user.id = post.fk_user WHERE user.username =?'
       ,[name], (error, results, fields) => {
@@ -50,8 +53,8 @@ export function selectAllUsers_And_Show_Posts_And_CommentAmount(){
   }
 
 
-
-export function selectPosts_ByTitle(title: string){
+//Display a specific post by title
+export function selectPostsFromTitle(title: string){
     return new Promise((resolve) => {
       connection.query('SELECT user.username AS user, post.title AS userpost, post.id as postId, post.url FROM user JOIN post ON user.id = post.fk_user WHERE post.title =?'
       ,[title], (error, results, fields) => {
@@ -61,7 +64,8 @@ export function selectPosts_ByTitle(title: string){
     })
   }
   
-  export function selectPosts_ById(postID: number){
+  //Display a specific post by ID
+  export function selectPostsFromId(postID: number){
     return new Promise((resolve) => {
       connection.query('SELECT user.username AS user, post.title AS userpost, post.id as postId, post.url FROM user JOIN post ON user.id = post.fk_user WHERE post.id =?'
       ,[postID], (error, results, fields) => {
