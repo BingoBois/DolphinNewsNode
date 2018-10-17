@@ -1,39 +1,11 @@
 import mysql, { Connection } from 'mysql';
-import { PostObject } from '../../types/post'
-import connection from './connection';
-import UserObject from '../../types/user';
-import { Vote } from '../../types/vote';
+import { PostObject } from '../../../types/post'
+import connection from '../connection';
+import UserObject from '../../../types/user';
+import { Vote } from '../../../types/vote';
 
 const crypto = require('crypto');
 const secret = 'mingade85';
-
-export function selectFromName(name: string) {
-  return new Promise((resolve) => {
-    connection.query('SELECT * FROM user WHERE username = ?', [name], (error, results, fields) => {
-      let id = results[0].id;
-      resolve(id);
-    })
-  });
-}
-
-export function selectUserFromID(id: number){
-  return new Promise((resolve) =>{
-    connection.query('SELECT id,username,email,karma,role FROM user WHERE id =?', [id], (error, results, fields) => {
-      let user = results;
-      resolve(user);
-    })
-  })
-}
-
-export function selectAllUsers(){
-  return new Promise((resolve)=>{
-    connection.query('SELECT id,username,email,karma,role from user', (error, results, fields)=>{
-      let users = results;
-      resolve(users);
-    })
-
-  })
-}
 
 export function createPost(postObject: PostObject){
   return new Promise((resolve, reject) => {
@@ -128,8 +100,7 @@ export function vote(vote: Vote){
   });
 }
 
-//Needs to have the correct FROM destination
-//Currently just finds the highest (max) ID and returns it, might need to be readjusted in the future.
+//Retrieves the latest (successfully) digested data
 export function latestDigestedPostNumber() {
   return new Promise((resolve) => {
       connection.query('SELECT * FROM user ORDER BY id DESC LIMIT 1', (error, results, fields) => {
