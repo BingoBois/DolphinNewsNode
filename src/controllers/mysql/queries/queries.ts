@@ -103,7 +103,7 @@ export function vote(vote: Vote){
 //Retrieves the latest (successfully) digested data
 export function latestDigestedPostNumber() {
   return new Promise((resolve) => {
-      connection.query('SELECT * FROM user ORDER BY id DESC LIMIT 1', (error, results, fields) => {
+      connection.query('SELECT * FROM post ORDER BY id DESC LIMIT 1', (error, results, fields) => {
       let latestDigestedNumber = results[0].id;
       resolve(latestDigestedNumber);
     })
