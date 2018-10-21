@@ -10,7 +10,6 @@ import {postsAndCommentsApi} from './routes/postAndCommentsApi';
 import {commentsApi} from './routes/commentsApi';
 import bodyParser = require("body-parser");
 import { postRouter } from "./routes/post";
-const { rabbitReceive } = require('./controllers/rabbitmq');
 const app = express();
 import { SetServerStatus } from './controllers/serverstatus';
 import cors from 'cors';
@@ -18,10 +17,6 @@ import cors from 'cors';
 // Settings
 app.set("port", process.env.PORT || 3000);
 app.set('json spaces', 40); // Pretify
-
-rabbitReceive((obj: PostObject) => {
-  createPost(obj);
-});
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
