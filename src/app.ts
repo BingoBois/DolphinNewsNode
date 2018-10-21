@@ -13,6 +13,7 @@ import { postRouter } from "./routes/post";
 const { rabbitReceive } = require('./controllers/rabbitmq');
 const app = express();
 import { SetServerStatus } from './controllers/serverstatus';
+import cors from 'cors';
 
 // Settings
 app.set("port", process.env.PORT || 3000);
@@ -22,6 +23,7 @@ rabbitReceive((obj: PostObject) => {
   createPost(obj);
 });
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
