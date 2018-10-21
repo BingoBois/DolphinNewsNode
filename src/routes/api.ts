@@ -7,7 +7,7 @@ const router: Router = Router();
 //Standard Test Route
 router.get('/', (req: Request, res: Response) => {
   res.json({
-    message: 'Hello and welcome to my guide',
+    message: 'Hello and sut to my guide',
     error: undefined
 })
 });
