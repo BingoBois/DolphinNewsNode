@@ -58,3 +58,11 @@ describe('GET / - an API-endpoint', () => {
     expect(typeof result.body.User).toEqual("object");
   });
 })
+
+describe('GET / - an API-endpoint', () => {
+  it('should return user with the specified name as JSON', async () => {
+    const result = await request(URL).get('/post/get/ByUser/name/bingomanden');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.User).toEqual("object");
+  });
+})
