@@ -50,3 +50,11 @@ describe('GET / - an API-endpoint', () => {
     expect(typeof result.body.Post).toEqual("object");
   });
 })
+
+describe('GET / - an API-endpoint', () => {
+  it('should return user with the specified ID as JSON', async () => {
+    const result = await request(URL).get('/post/get/ByUser/id/1');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.User).toEqual("object");
+  });
+})
