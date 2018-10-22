@@ -7,7 +7,7 @@ const router: Router = Router();
 //Standard Test Route
 router.get('/', (req: Request, res: Response) => {
   res.json({
-    message: 'Hello and øøøhhmmmm sut my øhhhhmmm to my guide',
+    message: 'Dolphin News Backend',
     error: undefined
 })
 });
