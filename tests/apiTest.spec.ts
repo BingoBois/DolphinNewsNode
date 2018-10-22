@@ -68,8 +68,16 @@ describe('GET / - an API-endpoint', () => {
 })
 
 describe('GET / - an API-endpoint', () => {
-  it('should return user with the specified name as JSON', async () => {
+  it('should return post with the specified name as JSON', async () => {
     const result = await request(URL).get('/post/get/byTitle/Warcraft');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.Post).toEqual("object");
+  });
+})
+
+describe('GET / - an API-endpoint', () => {
+  it('should return post with the specified ID as JSON', async () => {
+    const result = await request(URL).get('/post/get/byID/1');
     expect(result.statusCode).toEqual(200);
     expect(typeof result.body.Post).toEqual("object");
   });
