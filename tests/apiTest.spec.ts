@@ -34,3 +34,11 @@ describe('GET / - an API-endpoint', () => {
     expect(typeof result.body.Comments).toEqual("object");
   });
 })
+
+describe('GET / - an API-endpoint', () => {
+  it('should return the latest digested number as JSON', async () => {
+    const result = await request(URL).get('/latest');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.message).toEqual("number");
+  });
+})
