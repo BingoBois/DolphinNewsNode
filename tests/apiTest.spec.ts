@@ -12,14 +12,6 @@ describe('GET / - check that server is running', () => {
 })
 
 describe('GET / - an API-endpoint', () => {
-  it('should return all posts as JSON', async () => {
-    const result = await request(URL).get('/post/get/All');
-    expect(result.statusCode).toEqual(200);
-    expect(typeof result.body.Post).toEqual("object");
-  });
-})
-
-describe('GET / - an API-endpoint', () => {
   it('should return all comments as JSON', async () => {
     const result = await request(URL).get('/comment/get/all');
     expect(result.statusCode).toEqual(200);
@@ -40,5 +32,21 @@ describe('GET / - an API-endpoint', () => {
     const result = await request(URL).get('/latest');
     expect(result.statusCode).toEqual(200);
     expect(typeof result.body.message).toEqual("number");
+  });
+})
+
+describe('GET / - an API-endpoint', () => {
+  it('should return all posts as JSON', async () => {
+    const result = await request(URL).get('/post/get/All');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.Post).toEqual("object");
+  });
+})
+
+describe('GET / - an API-endpoint', () => {
+  it('should return all users with post and commentamount for the specific post as JSON', async () => {
+    const result = await request(URL).get('/post/get/all/commentamount');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.Post).toEqual("object");
   });
 })
