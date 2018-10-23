@@ -114,3 +114,11 @@ describe('GET /postandcomments/get/byPost/title/:postTitle - an API-endpoint', (
     expect(typeof result.body.Post_And_Comments_By_Post).toEqual("object");
   });
 })
+
+describe('GET /status - an API-endpoint', () => {
+  it('should return "Alive" as the status of the server', async () => {
+    const result = await request(URL).get('/status');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body).toEqual("object");
+  });
+})
