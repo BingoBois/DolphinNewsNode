@@ -138,3 +138,11 @@ describe('GET /user/get/ByID/:id - an API-endpoint', () => {
     expect(typeof result.body.User).toEqual("object");
   });
 })
+
+describe('GET /user/get/All - an API-endpoint', () => {
+  it('should return all users as JSON', async () => {
+    const result = await request(URL).get('/user/get/All');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.Users).toEqual("object");
+  });
+})
