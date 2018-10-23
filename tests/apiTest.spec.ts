@@ -98,3 +98,11 @@ describe('GET /postandcomments/get/byUser/id/:userID - an API-endpoint', () => {
     expect(typeof result.body.Post_And_Comments_By_User_Id).toEqual("object");
   });
 })
+
+describe('GET /postandcomments/get/byPost/id/:postID - an API-endpoint', () => {
+  it('should return posts and comments (as JSON) with the specified postID', async () => {
+    const result = await request(URL).get('/postandcomments/get/byPost/id/1');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.Post_And_Comments_By_Post).toEqual("object");
+  });
+})
