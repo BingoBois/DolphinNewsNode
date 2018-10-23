@@ -4,14 +4,14 @@ const request = require("supertest");
 
 const URL = "http://80.240.24.203:3000"
 
-describe('GET / - check that server is running', () => {
+describe('GET / - check if server is running', () => {
   it('should return statuscode 200', async () => {
     const result = await request(URL).get('/');
     expect(result.statusCode).toEqual(200);
   });
 })
 
-describe('GET / - an API-endpoint', () => {
+describe('GET /comment/get/all - an API-endpoint', () => {
   it('should return all comments as JSON', async () => {
     const result = await request(URL).get('/comment/get/all');
     expect(result.statusCode).toEqual(200);
@@ -19,7 +19,7 @@ describe('GET / - an API-endpoint', () => {
   });
 })
 
-describe('GET / - an API-endpoint', () => {
+describe('GET /comment/get/all/withVote - an API-endpoint', () => {
   it('should return all comments with votes as JSON', async () => {
     const result = await request(URL).get('/comment/get/all/withVote');
     expect(result.statusCode).toEqual(200);
@@ -27,7 +27,7 @@ describe('GET / - an API-endpoint', () => {
   });
 })
 
-describe('GET / - an API-endpoint', () => {
+describe('GET /latest - an API-endpoint', () => {
   it('should return the latest digested number as JSON', async () => {
     const result = await request(URL).get('/latest');
     expect(result.statusCode).toEqual(200);
@@ -35,7 +35,7 @@ describe('GET / - an API-endpoint', () => {
   });
 })
 
-describe('GET / - an API-endpoint', () => {
+describe('GET /post/get/All - an API-endpoint', () => {
   it('should return all posts as JSON', async () => {
     const result = await request(URL).get('/post/get/All');
     expect(result.statusCode).toEqual(200);
@@ -43,15 +43,15 @@ describe('GET / - an API-endpoint', () => {
   });
 })
 
-describe('GET / - an API-endpoint', () => {
-  it('should return all users with post and commentamount for the specific post as JSON', async () => {
+describe('GET /post/get/all/commentamount - an API-endpoint', () => {
+  it('should return all users with post and commentamount (as JSON) for the specific post', async () => {
     const result = await request(URL).get('/post/get/all/commentamount');
     expect(result.statusCode).toEqual(200);
     expect(typeof result.body.Post).toEqual("object");
   });
 })
 
-describe('GET / - an API-endpoint', () => {
+describe('GET /post/get/ByUser/id/:id - an API-endpoint', () => {
   it('should return user with the specified ID as JSON', async () => {
     const result = await request(URL).get('/post/get/ByUser/id/1');
     expect(result.statusCode).toEqual(200);
@@ -59,26 +59,34 @@ describe('GET / - an API-endpoint', () => {
   });
 })
 
-describe('GET / - an API-endpoint', () => {
-  it('should return user with the specified name as JSON', async () => {
+describe('GET /post/get/ByUser/name/:name - an API-endpoint', () => {
+  it('should return user (as JSON) with the specified name', async () => {
     const result = await request(URL).get('/post/get/ByUser/name/bingomanden');
     expect(result.statusCode).toEqual(200);
     expect(typeof result.body.User).toEqual("object");
   });
 })
 
-describe('GET / - an API-endpoint', () => {
-  it('should return post with the specified name as JSON', async () => {
+describe('GET /post/get/byTitle/:title - an API-endpoint', () => {
+  it('should return post as JSON with the specified name', async () => {
     const result = await request(URL).get('/post/get/byTitle/Warcraft');
     expect(result.statusCode).toEqual(200);
     expect(typeof result.body.Post).toEqual("object");
   });
 })
 
-describe('GET / - an API-endpoint', () => {
-  it('should return post with the specified ID as JSON', async () => {
+describe('GET /post/get/byID/:id - an API-endpoint', () => {
+  it('should return post (as JSON) with the specified ID', async () => {
     const result = await request(URL).get('/post/get/byID/1');
     expect(result.statusCode).toEqual(200);
     expect(typeof result.body.Post).toEqual("object");
+  });
+})
+
+describe('GET /postandcomments/get/byUser/name/:username - an API-endpoint', () => {
+  it('should return posts and comments (as JSON) for user with the specified username', async () => {
+    const result = await request(URL).get('/postandcomments/get/byUser/name/bingomanden');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.Post_And_Comments_By_User_Name).toEqual("object");
   });
 })
