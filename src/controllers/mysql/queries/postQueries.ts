@@ -22,7 +22,7 @@ export function selectSpecificUsersContentCount(){
   //Display all users and corensponding post
   export function selectAllUsersAndPosts(){
     return new Promise((resolve)=>{
-      connection.query('SELECT user.username AS user, post.title AS userpost, post.id as postId, post.url FROM user JOIN post ON user.id = post.fk_user'
+      connection.query('SELECT user.username AS user, post.title AS userpost, post.id as postId, post.url, post.time FROM user JOIN post ON user.id = post.fk_user'
       , (error, results, fields)=>{
         let usersAndPost = results;
         resolve(usersAndPost);
