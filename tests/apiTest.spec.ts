@@ -100,8 +100,16 @@ describe('GET /postandcomments/get/byUser/id/:userID - an API-endpoint', () => {
 })
 
 describe('GET /postandcomments/get/byPost/id/:postID - an API-endpoint', () => {
-  it('should return posts and comments (as JSON) with the specified postID', async () => {
+  it('should return posts and comments (as JSON) with the specified post ID', async () => {
     const result = await request(URL).get('/postandcomments/get/byPost/id/1');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.Post_And_Comments_By_Post).toEqual("object");
+  });
+})
+
+describe('GET /postandcomments/get/byPost/title/:postTitle - an API-endpoint', () => {
+  it('should return posts and comments (as JSON) with the specified post title', async () => {
+    const result = await request(URL).get('/postandcomments/get/byPost/title/NYC%20Developer%20Dilemma');
     expect(result.statusCode).toEqual(200);
     expect(typeof result.body.Post_And_Comments_By_Post).toEqual("object");
   });
