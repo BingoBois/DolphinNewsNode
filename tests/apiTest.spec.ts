@@ -154,3 +154,27 @@ describe('GET user/get/AllAdmin - an API-endpoint', () => {
     expect(typeof result.body.Users).toEqual("object");
   });
 })
+
+describe('GET user/get/AllMembers - an API-endpoint', () => {
+  it('should return all members as JSON', async () => {
+    const result = await request(URL).get('/user/get/AllMembers');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.Users).toEqual("object");
+  });
+})
+
+describe('GET user/get/ByKarma/Above/:karma - an API-endpoint', () => {
+  it('should return all users (as JSON) with karma number above the specified number', async () => {
+    const result = await request(URL).get('/user/get/ByKarma/Above/1');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.User).toEqual("object");
+  });
+})
+
+describe('GET user/get/ByKarma/Below/:karma - an API-endpoint', () => {
+  it('should return all users (as JSON) with karma number below the specified number', async () => {
+    const result = await request(URL).get('/user/get/ByKarma/Below/1');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.User).toEqual("object");
+  });
+})
