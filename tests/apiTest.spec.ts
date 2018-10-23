@@ -146,3 +146,11 @@ describe('GET /user/get/All - an API-endpoint', () => {
     expect(typeof result.body.Users).toEqual("object");
   });
 })
+
+describe('GET user/get/AllAdmin - an API-endpoint', () => {
+  it('should return all admin users as JSON', async () => {
+    const result = await request(URL).get('/user/get/AllAdmin');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.Users).toEqual("object");
+  });
+})
