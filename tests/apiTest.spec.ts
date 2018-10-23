@@ -122,3 +122,19 @@ describe('GET /status - an API-endpoint', () => {
     expect(typeof result.body).toEqual("object");
   });
 })
+
+describe('GET /status/404 - an API-endpoint', () => {
+  it('should return "Alive" as the status of the server', async () => {
+    const result = await request(URL).get('/status/404');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body).toEqual("object");
+  });
+})
+
+describe('GET /user/get/ByID/:id - an API-endpoint', () => {
+  it('should return the user (as JSON) with the specified ID', async () => {
+    const result = await request(URL).get('/user/get/ByID/1');
+    expect(result.statusCode).toEqual(200);
+    expect(typeof result.body.User).toEqual("object");
+  });
+})
