@@ -3,7 +3,7 @@ import {selectAllContentByPostId, selectAllContentByPostTitle,
    selectAllContentByUserId, selectAllContentByUsername} from '../controllers/mysql/queries/postAndCommentsQueries'; 
 const router: Router = Router();
 
-//Retrieves Post and comments by UserName
+//Retrieves Post and comments by the UserName
 router.get('/get/byUser/name/:username', (req, res) => {
     let userName= req.params.username;
     selectAllContentByUsername(userName).then(resu =>{

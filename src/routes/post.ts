@@ -2,7 +2,8 @@ import { Request, Response, Router } from 'express'
 import {PostObject} from '../types/post'
 import UserObject from '../types/user'
 import { createUser, getUser, createPost } from '../controllers/mysql/queries/queries'
-import {selectPostsFromId,selectAllUsersAndPosts,selectPostsFromTitle,selectSpecificUsersContentCount,selectUserIdFromPost,selectUsernameFromPosts}
+import {selectPostsFromId,selectAllUsersAndPosts,selectPostsFromTitle,showPostCommentAmount
+  ,selectUserIdFromPost,selectUsernameFromPosts, showPostVotes}
      from '../controllers/mysql/queries/postQueries';
 
 const router: Router = Router();
@@ -43,8 +44,16 @@ router.get('/get/All/', (req, res) => {
     })
   })
 
+  router.get('/get/All/PostWithVotes', (req, res) => {
+    showPostVotes().then(resu => {
+      res.json({
+        Post: resu
+      })
+    })
+  })
+
  router.get('/get/all/commentamount', (req,res) =>{
-   selectSpecificUsersContentCount().then(resu =>{
+   showPostCommentAmount().then(resu =>{
      res.json({
        Post: resu
      })
