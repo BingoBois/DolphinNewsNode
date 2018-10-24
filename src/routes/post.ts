@@ -1,7 +1,8 @@
 import { Request, Response, Router } from 'express'
 import {PostObject} from '../types/post'
 import UserObject from '../types/user'
-import { createUser, getUser, createPost } from '../controllers/mysql/queries/queries'
+import VoteObject from '../types/vote'
+import { createUser, getUser, createPost, vote } from '../controllers/mysql/queries/queries'
 import {selectPostsFromId,selectAllUsersAndPosts,selectPostsFromTitle,selectSpecificUsersContentCount,selectUserIdFromPost,selectUsernameFromPosts}
      from '../controllers/mysql/queries/postQueries';
 
@@ -32,7 +33,10 @@ router.post('/', (req: Request, res: Response) => {
 });
 
 router.post('/vote', (req: Request, res: Response) => {
-    
+  const tempVote: VoteObject = req.body;
+  tempVote.vote_type = 'post';
+  console.log(tempVote)
+  vote(tempVote);
 });
 
 router.get('/get/All/', (req, res) => {

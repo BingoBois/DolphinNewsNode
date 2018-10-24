@@ -2,7 +2,7 @@ import mysql, { Connection } from 'mysql';
 import { PostObject } from '../../../types/post'
 import connection from '../connection';
 import UserObject from '../../../types/user';
-import { Vote } from '../../../types/vote';
+import  Vote  from '../../../types/vote';
 
 const crypto = require('crypto');
 const secret = 'mingade85';
@@ -87,7 +87,7 @@ export function vote(vote: Vote){
           });
         break;
       case 'post':
-          connection.query('INSERT INTO vote_comment (amount, fk_user, fk_post) VALUES (?,?,?)',
+          connection.query('INSERT INTO vote_post (amount, fk_user, fk_post) VALUES (?,?,?)',
           [vote.amount, vote.fk_user, vote.fk_post],
           (error, results, fields) => {
             if(error !== null){
