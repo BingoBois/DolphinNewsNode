@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
 import { selectAllComments, selectGetAllCommentsWithVotes } from '../controllers/mysql/queries/commentsQueries';
-import { vote } from '../controllers/mysql/queries/queries'
+import { vote, unVote } from '../controllers/mysql/queries/queries'
 import VoteObject from '../types/vote'
 const router: Router = Router();
 
@@ -25,6 +25,12 @@ router.post('/vote', (req: Request, res: Response) => {
   const tempVote: VoteObject = req.body;
   tempVote.vote_type = 'comment';
   vote(tempVote);
+});
+
+router.delete('/unvote/:id', (req: Request, res: Response) => {
+  const id = req.params.id;
+  const vote_type = 'comment';
+  unVote(id, vote_type);
 });
 
 export const commentsApi: Router = router;
