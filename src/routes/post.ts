@@ -38,7 +38,7 @@ router.post('/vote', (req: Request, res: Response) => {
   vote(tempVote);
 });
 
-router.delete('/unvote/:id', (req: Request, res: Response) => {
+router.delete('/unvote/id/:id', (req: Request, res: Response) => {
   const id = req.params.id;
   const vote_type = 'post';
   unVote(id, vote_type);
