@@ -5,7 +5,7 @@ import { resolve } from 'url';
 //Retrieves all post and comments by Username
 export function selectAllContentByUsername(username:string){
     return new Promise((resolve) => {
-    connection.query('SELECT user.id as userID, user.username AS user, comment.`content` AS usercomment, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postID, post.title as postTitle, post.`url`, post.`time` as postTime '
+    connection.query('SELECT user.id as userId, user.username AS userName, comment.`content` AS commentContent, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postId, post.title as postTitle, post.`url` as postURL, post.`time` as postTime '
     + 'FROM user '+
     'JOIN comment ON user.id = comment.`fk_user` '+
     'join post ON post.`id` = comment.`fk_post` '+
@@ -20,7 +20,7 @@ export function selectAllContentByUsername(username:string){
 //Retrieves all post and comments by User ID
 export function selectAllContentByUserId(userid:number){
     return new Promise((resolve) => {
-    connection.query('SELECT user.id as userID, user.username AS user, comment.`content` AS usercomment, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postID, post.title as postTitle, post.`url`, post.`time` as postTime '
+    connection.query('SELECT user.id as userId, user.username AS userName, comment.`content` AS commentContent, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postId, post.title as postTitle, post.`url` as postURL, post.`time` as postTime '
     + 'FROM user '+
     'JOIN comment ON user.id = comment.`fk_user` '+
     'join post ON post.`id` = comment.`fk_post` '+
@@ -35,7 +35,7 @@ export function selectAllContentByUserId(userid:number){
   //Retrieves all the content by Post iD
   export function selectAllContentByPostId(postid:number){
     return new Promise((resolve) => {
-    connection.query('SELECT user.id as userID, user.username AS user, comment.`content` AS usercomment, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postID, post.title as postTitle, post.`url`, post.`time` as postTime '
+    connection.query('SELECT user.id as userId, user.username AS userName, comment.`content` AS commentContent, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postId, post.title as postTitle, post.`url` as postURL, post.`time` as postTime '
     + 'FROM user '+
     'JOIN comment ON user.id = comment.`fk_user` '+
     'join post ON post.`id` = comment.`fk_post` '+
@@ -50,7 +50,7 @@ export function selectAllContentByUserId(userid:number){
    //Retrieves all the content by Post Title
   export function selectAllContentByPostTitle(postTitle:string){
     return new Promise((resolve) => {
-    connection.query('SELECT user.id as userID, user.username AS user, comment.`content` AS usercomment, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postID, post.title as postTitle, post.`url`, post.`time` as postTime '
+    connection.query('SELECT user.id as userId, user.userName AS user, comment.`content` AS commentContent, comment.`time` as commentTime, comment.`id` as commentId, comment.`fk_comment` as commentNumber, comment.`fk_post` as postID, post.title as postTitle, post.`url` as postURL, post.`time` as postTime '
     + 'FROM user '+
     'JOIN comment ON user.id = comment.`fk_user` '+
     'join post ON post.`id` = comment.`fk_post` '+
