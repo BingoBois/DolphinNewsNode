@@ -19,9 +19,10 @@ export function showPostCommentAmount(){
     })
   }
 
+  //Display all post with votes
   export function showPostVotes(){
     return new Promise((resolve)=>{
-      connection.query('Select vote_post.`fk_post` as postId, post.`title` as postTitle, post.text as postText, user.`id` as userId, user.`username` as userName, SUM(vote_post.amount) as PostVotes, post.url as postURL, post.time as postTime '
+      connection.query('Select vote_post.`fk_post` as postId, post.`title` as postTitle, post.text as postText, user.`id` as userId, user.`username` as userName, SUM(vote_post.amount) as postVotes, post.url as postURL, post.time as postTime '
      +' from vote_post'
      + ' join post on post.`id` = vote_post.fk_post '
      + ' join user on post.`fk_user` = user.`id` '
