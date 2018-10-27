@@ -44,7 +44,7 @@ router.delete('/unvote/id/:id', (req: Request, res: Response) => {
   unVote(id, vote_type);
 });
 
-router.get('/get/All/', (req, res) => {
+router.get('/get/All', (req, res) => {
   selectAllUsersAndPosts().then(resu => {
     res.json({
       Post: resu
