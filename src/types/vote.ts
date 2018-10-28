@@ -1,4 +1,4 @@
-export default interface Vote {
+export default interface VoteObject {
     id?: number;
     vote_type: "post" | "comment";
     amount: number;

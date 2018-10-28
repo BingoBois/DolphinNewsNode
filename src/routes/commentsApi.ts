@@ -15,13 +15,11 @@ router.get('/get/all', (req: Request, res: Response) => {
   selectAllComments().then(resu => {
     res.json(JSON.stringify(resu));
   })
-})
 
 router.get('/get/bypost/:id', (req: Request, res: Response) => {
   selectAllCommentsFromPostId(req.params.id).then(resu => {
     res.json(JSON.stringify(resu));
   })
-})
 
 router.post('/vote', (req: Request, res: Response) => {
   const tempVote: VoteObject = req.body;

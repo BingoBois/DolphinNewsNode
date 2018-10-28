@@ -1,4 +1,6 @@
 export interface PostObject{
+  id: number,
+  time: string,
   username: string,
   post_type: string,
   pwd_hash: string,

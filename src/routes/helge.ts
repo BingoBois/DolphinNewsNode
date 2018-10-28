@@ -10,6 +10,7 @@ const router: Router = Router();
 
 router.post('/', (req: Request, res: Response) => {
     const tempPost: PostObject = {
+        id: -1,
         hanesst_id: req.body.hanesst_id,
         post_parent: req.body.post_parent,
         post_text: req.body.post_text,
@@ -17,7 +18,8 @@ router.post('/', (req: Request, res: Response) => {
         post_type: req.body.post_type,
         post_url: req.body.post_url,
         pwd_hash: req.body.pwd_hash,
-        username: req.body.username
+        username: req.body.username,
+        time: ""
     }
     console.log(tempPost)
     // check if the given user exists before we let them post

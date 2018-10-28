@@ -57,7 +57,6 @@ export function createUser(userObject: UserObject) {
 }
 
 export function getUser(username: string, password: string) {
-
   const hash = crypto.
     createHmac('sha256', secret).
     update(password).
@@ -128,6 +127,66 @@ export function unVote(voteId: string, vote_type: string) {
         break;
     }
   });
+}
+
+export function getPosts(index: number, amount: number){
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT post.id, post.url, post.title, post.text, post.time, post.fk_user, user.username FROM post LEFT JOIN user ON post.fk_user=user.id LIMIT ?,?',
+        [index, amount],
+        (error, results, fields) => {
+            if (error != null) {
+            reject(error);
+            }
+            const parsedPost = results.map((item: any) =>{
+                return parsePostObject(item);
+            })
+            resolve(parsedPost)
+        });
+    })
+}
+
+function parsePostObject(post: any){
+    const postObj: PostObject = {
+        id: post.id,
+        time: post.time,
+        hanesst_id: post.helge_id,
+        post_parent: -1,
+        post_text: post.text,
+        post_title: post.title,
+        post_type: "post",
+        post_url: post.url,
+        pwd_hash: "",
+        username: post.username
+    }
+
+    return postObj
+}
+
+
+export function getPostVotes(postId: number){
+    return new Promise((resolve, reject) => {
+        connection.query('select sum(amount) as votes from vote_post where fk_post = ?',
+        [postId],
+        (error, results, fields) => {
+            if (error != null) {
+            reject(error);
+            }
+            resolve(results[0])
+        });
+    })
+}
+
+export function countComment(postId: number){
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT COUNT(*) as commentAmount FROM comment WHERE comment.fk_post = ?',
+        [postId],
+        (error, results, fields) => {
+            if (error != null) {
+            reject(error);
+            }
+            resolve(results[0])
+        });
+    })
 }
 
 //Retrieves the latest (successfully) digested data
