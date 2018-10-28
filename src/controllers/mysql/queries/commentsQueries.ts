@@ -22,7 +22,7 @@ export function selectAllComments(){
       connection.query('SELECT `comment`.id, SUM(vote_comment.amount) as karma ,`comment`.content, comment.time, comment.fk_user, user.username \
         FROM comment \
         LEFT JOIN user ON comment.fk_user=user.id \
-        JOIN vote_comment ON `vote_comment`.`fk_comment` \
+        JOIN vote_comment ON `vote_comment`.`fk_comment` = comment.id \
         WHERE fk_post = ? \
         GROUP BY comment.id',
         [postId], (error, rows, fields) => {
