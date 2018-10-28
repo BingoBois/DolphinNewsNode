@@ -2,12 +2,12 @@ import { Request, Response, Router } from 'express'
 import { PostObject } from '../types/post'
 import VoteObject from '../types/vote'
 import UserObject from '../types/user'
+
 import { createUser, getUser, createPost } from '../controllers/mysql/queries/queries'
 import {selectPostsFromId,selectAllUsersAndPosts,selectPostsFromTitle,showPostCommentAmount
   ,selectUserIdFromPost,selectUsernameFromPosts, showPostVotes}
      from '../controllers/mysql/queries/postQueries';
 import { getPosts, vote, unVote, countComment, getPostVotes } from '../controllers/mysql/queries/queries'
-
 
 const router: Router = Router();
 
@@ -45,8 +45,11 @@ router.post('/vote', (req: Request, res: Response) => {
 router.delete('/unvote/id/:id', (req: Request, res: Response) => {
   const id = req.params.id;
   const vote_type = 'post';
-  unVote(id, vote_type);
+  unVote(id, vote_type).then(result => {
+    res.json({ succes: true })
+  })
 });
+
 
 router.post('/getPosts', (req: Request, res: Response) => {
     console.log("Getting posts amount " + req.body.index)
@@ -88,26 +91,26 @@ router.post('/getCommentAmount', (req: Request, res: Response) => {
     })
 })
 
+
 router.get('/get/all/', (req, res) => {
-    selectAllUsersAndPosts().then(resu => {
-      res.json(JSON.stringify(resu));
-    })
-  })
-
-  router.get('/get/all/postwithvotes', (req, res) => {
-    showPostVotes().then(resu => {
-      res.json(JSON.stringify(resu));
-    })
-  })
-
- router.get('/get/all/commentamount', (req,res) =>{
-   showPostCommentAmount().then(resu =>{
+  selectAllUsersAndPosts().then(resu => {
     res.json(JSON.stringify(resu));
-   })
- }) 
+  })
+})
 
+router.get('/get/all/postwithvotes', (req, res) => {
+  showPostVotes().then(resu => {
+    res.json(JSON.stringify(resu));
+  })
 
-router.get('/get/byuser/id/:id', (req, res) =>{
+router.get('/get/all/commentamount', (req, res) => {
+  showPostCommentAmount().then(resu => {
+
+    res.json(JSON.stringify(resu));
+  })
+})
+
+router.get('/get/byuser/id/:id', (req, res) => {
   let userID = req.params.id;
   selectUserIdFromPost(userID).then(resu => {
     res.json(JSON.stringify(resu));
@@ -134,6 +137,5 @@ router.get('/get/byid/:id', (req, res) => {
     res.json(JSON.stringify(resu));
   })
 })
-
 
 export const postRouter: Router = router;
