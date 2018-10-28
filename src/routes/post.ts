@@ -45,7 +45,9 @@ router.post('/vote', (req: Request, res: Response) => {
 router.delete('/unvote/id/:id', (req: Request, res: Response) => {
   const id = req.params.id;
   const vote_type = 'post';
-  unVote(id, vote_type);
+  unVote(id, vote_type).then(result => {
+    res.json({ succes: true })
+  })
 });
 
 router.get('/get/all/', (req, res) => {
