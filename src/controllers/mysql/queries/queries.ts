@@ -11,6 +11,7 @@ export function createPost(postObject: PostObject){
   return new Promise((resolve, reject) => {
     switch(postObject.post_type){
       case 'story': {
+        console.log("Creating post...")
         connection.query('INSERT INTO post (title, url, time, helge_id, fk_user) VALUES (?, ?, ?, ?, (SELECT id FROM user WHERE username = ?))',
         [postObject.post_title, postObject.post_url, new Date(), postObject.hanesst_id, postObject.username],
         (error, results, fields) => {
@@ -19,7 +20,8 @@ export function createPost(postObject: PostObject){
         break;
       }
       case 'comment': {
-        connection.query('INSERT INTO comment (content, time, helge_id, fk_user, fk_post) VALUES (?, ?, (SELECT id FROM user WHERE username = ?), ?, ?)',
+        console.log("Creating comment...")
+        connection.query('INSERT INTO comment (content, time, helge_id, fk_user, fk_post) VALUES (?, ?, ?, (SELECT id FROM user WHERE username = ?), (SELECT id FROM post WHERE helge_id = ?))',
         [postObject.post_text, new Date(), postObject.hanesst_id, postObject.username, postObject.post_parent],
         (error, results, fields) => {
           resolve(results);
