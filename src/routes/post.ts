@@ -38,6 +38,7 @@ router.post('/', (req: Request, res: Response) => {
 router.post('/vote', (req: Request, res: Response) => {
   const tempVote: VoteObject = req.body;
   tempVote.vote_type = 'post';
+  tempVote.amount = 1;
   vote(tempVote);
 });
  
