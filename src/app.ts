@@ -7,6 +7,7 @@ import { PostObject } from './types/post';
 import { createPost,  } from './controllers/mysql/queries/queries';
 import { authRouter } from "./routes/auth";
 import {postsAndCommentsApi} from './routes/postAndCommentsApi';
+import {helgeRouter} from './routes/helge'
 import {commentsApi} from './routes/commentsApi';
 import bodyParser = require("body-parser");
 import { postRouter } from "./routes/post";
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 // Routes
 app.use('/', api);
 app.use(bodyParser.json());
+app.use('/helge', helgeRouter);
 app.use('/latest', latestApi);
 app.use('/auth', authRouter);
 app.use('/post', postRouter)
