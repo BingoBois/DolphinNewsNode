@@ -16,7 +16,7 @@ import { SetServerStatus } from './controllers/serverstatus';
 import cors from 'cors';
 
 // Settings
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 3333);
 app.set('json spaces', 40); // Pretify
 
 app.use(cors());
