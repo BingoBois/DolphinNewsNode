@@ -20,6 +20,7 @@ router.get('/get/all', (req, res) => {
 router.post('/vote', (req: Request, res: Response) => {
   const tempVote: VoteObject = req.body;
   tempVote.vote_type = 'comment';
+  tempVote.amount = 1;
   vote(tempVote);
 });
 
