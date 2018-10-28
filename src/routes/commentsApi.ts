@@ -3,12 +3,10 @@ import {selectAllComments, selectGetAllCommentsWithVotes} from '../controllers/m
 const router: Router = Router();
 
 //Get all comments with 
-router.get('/get/all/withVote', (req, res) =>{
+router.get('/get/all/withvote', (req, res) =>{
     
     selectGetAllCommentsWithVotes().then(resu => {
-      res.json({
-        Comments: resu
-      })
+      res.json(JSON.stringify(resu));
     })
   })
 
@@ -16,9 +14,7 @@ router.get('/get/all/withVote', (req, res) =>{
 router.get('/get/all', (req, res) =>{
     
     selectAllComments().then(resu => {
-      res.json({
-        Comments: resu
-      })
+      res.json(JSON.stringify(resu));
     })
   })
 
