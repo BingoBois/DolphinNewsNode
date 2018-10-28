@@ -1,11 +1,13 @@
 import { Request, Response, Router } from 'express'
 import { PostObject } from '../types/post'
 import UserObject from '../types/user'
-import { createUser, getUser, createPost } from '../controllers/mysql/queries/queries'
-import {selectPostsFromId,selectAllUsersAndPosts,selectPostsFromTitle,showPostCommentAmount
-  ,selectUserIdFromPost,selectUsernameFromPosts, showPostVotes}
-     from '../controllers/mysql/queries/postQueries';
-
+import VoteObject from '../types/vote'
+import { createUser, getUser, createPost, vote, unVote } from '../controllers/mysql/queries/queries'
+import {
+  selectPostsFromId, selectAllUsersAndPosts, selectPostsFromTitle, showPostCommentAmount
+  , selectUserIdFromPost, selectUsernameFromPosts, showPostVotes
+}
+  from '../controllers/mysql/queries/postQueries';
 
 const router: Router = Router();
 
@@ -46,30 +48,25 @@ router.delete('/unvote/id/:id', (req: Request, res: Response) => {
   unVote(id, vote_type);
 });
 
-
 router.get('/get/all/', (req, res) => {
-    selectAllUsersAndPosts().then(resu => {
-      res.json(JSON.stringify(resu));
-    })
-  })
-
-  router.get('/get/all/postwithvotes', (req, res) => {
-    showPostVotes().then(resu => {
-      res.json(JSON.stringify(resu));
-    })
+  selectAllUsersAndPosts().then(resu => {
+    res.json(JSON.stringify(resu));
   })
 })
 
-
-
- router.get('/get/all/commentamount', (req,res) =>{
-   showPostCommentAmount().then(resu =>{
+router.get('/get/all/postwithvotes', (req, res) => {
+  showPostVotes().then(resu => {
     res.json(JSON.stringify(resu));
-   })
- }) 
+  })
+})
 
+router.get('/get/all/commentamount', (req, res) => {
+  showPostCommentAmount().then(resu => {
+    res.json(JSON.stringify(resu));
+  })
+})
 
-router.get('/get/byuser/id/:id', (req, res) =>{
+router.get('/get/byuser/id/:id', (req, res) => {
   let userID = req.params.id;
   selectUserIdFromPost(userID).then(resu => {
     res.json(JSON.stringify(resu));
@@ -96,6 +93,5 @@ router.get('/get/byid/:id', (req, res) => {
     res.json(JSON.stringify(resu));
   })
 })
-
 
 export const postRouter: Router = router;
