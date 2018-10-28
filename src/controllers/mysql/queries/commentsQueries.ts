@@ -17,6 +17,14 @@ export function selectAllComments(){
     })
   }
 
+  export function selectAllCommentsFromPostId(postId: number){
+    return new Promise((resolve) => {
+      connection.query(`SELECT * FROM comment where fk_post = ?`, [postId], (error, rows, fields) => {
+        let comments = rows;
+        resolve(rows);
+      });
+    });
+  }
 
   //Retrieves all the comments with (and only with) votes
   export function selectGetAllCommentsWithVotes() {
