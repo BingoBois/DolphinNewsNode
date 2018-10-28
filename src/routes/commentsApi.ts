@@ -12,7 +12,6 @@ router.get('/get/all/withvote', (req, res) =>{
 
     })
   })
-})
 
 router.get('/get/all', (req, res) =>{
     
@@ -20,7 +19,6 @@ router.get('/get/all', (req, res) =>{
       res.json(JSON.stringify(resu));
     })
   })
-})
 
 router.post('/vote', (req: Request, res: Response) => {
   const tempVote: VoteObject = req.body;
