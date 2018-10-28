@@ -11,19 +11,22 @@ export function createPost(postObject: PostObject) {
   return new Promise((resolve, reject) => {
     switch (postObject.post_type) {
       case 'story': {
-        connection.query('INSERT INTO post (title, url, time, fk_user) VALUES (?, ?, ?, (SELECT id FROM user WHERE username = ?))',
-          [postObject.post_title, postObject.post_url, new Date(), postObject.username],
-          (error, results, fields) => {
-            resolve(results);
-          });
+
+        console.log("Creating post...")
+        connection.query('INSERT INTO post (title, url, time, helge_id, fk_user) VALUES (?, ?, ?, ?, (SELECT id FROM user WHERE username = ?))',
+        [postObject.post_title, postObject.post_url, new Date(), postObject.hanesst_id, postObject.username],
+        (error, results, fields) => {
+          resolve(results);
+        });
         break;
       }
       case 'comment': {
-        connection.query('INSERT INTO comment (content, time, fk_user, fk_post) VALUES (?, ?, (SELECT id FROM user WHERE username = ?), ?, ?)',
-          [postObject.post_text, new Date(), postObject.username, postObject.post_parent],
-          (error, results, fields) => {
-            resolve(results);
-          });
+        console.log("Creating comment...")
+        connection.query('INSERT INTO comment (content, time, helge_id, fk_user, fk_post) VALUES (?, ?, ?, (SELECT id FROM user WHERE username = ?), (SELECT id FROM post WHERE helge_id = ?))',
+        [postObject.post_text, new Date(), postObject.hanesst_id, postObject.username, postObject.post_parent],
+        (error, results, fields) => {
+          resolve(results);
+        });
         break;
       }
       default: {
@@ -130,7 +133,7 @@ export function unVote(voteId: string, vote_type: string) {
 //Retrieves the latest (successfully) digested data
 export function latestDigestedPostNumber() {
   return new Promise((resolve) => {
-    connection.query('SELECT * FROM user ORDER BY id DESC LIMIT 1', (error, results, fields) => {
+      connection.query('SELECT * FROM post ORDER BY id DESC LIMIT 1', (error, results, fields) => {
       let latestDigestedNumber = results[0].id;
       resolve(latestDigestedNumber);
     })

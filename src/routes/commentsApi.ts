@@ -5,18 +5,19 @@ import VoteObject from '../types/vote'
 const router: Router = Router();
 
 //Get all comments with 
-router.get('/get/all/withVote', (req, res) => {
-  selectGetAllCommentsWithVotes().then(resu => {
-    res.json({
-      Comments: resu
+router.get('/get/all/withvote', (req, res) =>{
+    
+    selectGetAllCommentsWithVotes().then(resu => {
+      res.json(JSON.stringify(resu));
+
     })
   })
 })
 
-router.get('/get/all', (req, res) => {
-  selectAllComments().then(resu => {
-    res.json({
-      Comments: resu
+router.get('/get/all', (req, res) =>{
+    
+    selectAllComments().then(resu => {
+      res.json(JSON.stringify(resu));
     })
   })
 })

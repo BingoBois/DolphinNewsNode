@@ -7,27 +7,26 @@ import { PostObject } from './types/post';
 import { createPost,  } from './controllers/mysql/queries/queries';
 import { authRouter } from "./routes/auth";
 import {postsAndCommentsApi} from './routes/postAndCommentsApi';
+import {helgeRouter} from './routes/helge'
 import {commentsApi} from './routes/commentsApi';
 import bodyParser = require("body-parser");
 import { postRouter } from "./routes/post";
-const { rabbitReceive } = require('./controllers/rabbitmq');
 const app = express();
 import { SetServerStatus } from './controllers/serverstatus';
+import cors from 'cors';
 
 // Settings
 app.set("port", process.env.PORT || 3000);
 app.set('json spaces', 40); // Pretify
 
-rabbitReceive((obj: PostObject) => {
-  createPost(obj);
-});
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Routes
 app.use('/', api);
 app.use(bodyParser.json());
+app.use('/helge', helgeRouter);
 app.use('/latest', latestApi);
 app.use('/auth', authRouter);
 app.use('/post', postRouter)

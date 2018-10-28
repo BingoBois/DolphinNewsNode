@@ -7,7 +7,7 @@ const router: Router = Router();
 //Standard Test Route
 router.get('/', (req: Request, res: Response) => {
   res.json({
-    message: 'Hello and welcome to my guide',
+    message: 'Vandmanden er objektivt det daarligste stjernetegn',
     error: undefined
 })
 });
