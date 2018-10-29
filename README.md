@@ -385,9 +385,9 @@ Project Backend
 
 Project IP/URL
 
-**Frontend: **[http://80.240.24.203](http://80.240.24.203)
+**Frontend:** [http://80.240.24.203](http://80.240.24.203)
 
-**Backend: **[http://80.240.24.203:3000/](http://80.240.24.203:3000/)
+**Backend:** [http://80.240.24.203:3000/](http://80.240.24.203:3000/)
 
 dbdolphin.viter.dk =[ 108.61.211.164](http://108.61.211.164/)
 
@@ -403,8 +403,6 @@ You will need various information and files, in order to access the project's va
 
 Please contact us in order to get access to the teams:
 
-
-
 *   Kubernetes
 *   Droplets
 *   Docker
@@ -414,7 +412,7 @@ Please contact us in order to get access to the teams:
 
 -----
 
-### General Technologies: \
+### General Technologies: 
 
 *   Primary language:
     *   Typescript
