@@ -23,6 +23,32 @@ To run the project:
 *   If no errors occurred during the "npm install" or the "tsc watch", the project should now be running
 
 -----
+# The system crashed, what do i do?
+
+### 1.
+ssh root@80.240.24.203
+password !sG5[apHwB?cW%r_
+
+### 2. 
+kubectl get pods
+
+       NAME                                READY   STATUS    RESTARTS   AGE
+dolphin-backend-6c994db86b-htqm4           1/1     Running   0          26m
+
+### 3. 
+If there are any resets (use the pod name):
+kubectl logs --previous dolphin-backend-6c994db86b-htqm4
+	If no resets:
+kubectl logs dolphin-backend-6c994db86b-htqm4
+
+## Do a rollback if something is really wrong (use the name):
+
+kubectl rollout history deployment dolphin-frontend
+
+Use the revision number 1 below the current one:
+kubectl rollout undo deployment dolphin-frontend --to-revision=17
+
+----
 ## API's and Functions
 
 
