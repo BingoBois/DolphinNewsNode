@@ -1,6 +1,6 @@
 # Dolphin News Backend
 
-#### DolphinNews-Backend
+## DolphinNews-Backend
 
 [https://github.com/BingoBois/DolphinNewsNode](https://github.com/BingoBois/DolphinNewsNode)
 
@@ -23,10 +23,10 @@ To run the project:
 *   If no errors occurred during the "npm install" or the "tsc watch", the project should now be running
 
 -----
-### API's and Functions
+## API's and Functions
 
 
-#### Backend
+### Backend
 
 [http://80.240.24.203:3000/](http://80.240.24.203:3000/)
 
@@ -52,17 +52,19 @@ These are the core API's for the backend:
 
 /helge
 
+
+
 Below is a walkthrough of all the API's and their functionalities.
 
 
-##### '/' 
+#### '/' 
 
 Api-File: _/src/routes/api.ts_
 
 Returns a basic string message, to quickly see if the server can provide a response
 
 
-##### '/latest' 
+#### '/latest' 
 
 Api-File: _/src/routes/latestApi.ts_
 
@@ -71,17 +73,14 @@ Queries-file: _/src/controllers/mysql/queries/queries.ts_
 Returns the number/int of the latest successfully added post.
 
 
-##### '/auth'
+#### '/auth'
 
 Api-File:_ /src/routes/auth.ts_
 
 Queries-file: _/src/controllers/mysql/queries/queries.ts_
 
- \
-Used for authenticating and registering a user. \
 
-
-
+Used for authenticating and registering a user. 
 
 *   **/auth/login**
     *   Post-method
@@ -94,7 +93,7 @@ Used for authenticating and registering a user. \
     *   Returns json {'message' : "Error"} if failed to register/create user.
 
 
-##### '/post'
+#### '/post'
 
 Api-File:_ /src/routes/post.ts_
 
@@ -102,57 +101,65 @@ Queries-file 1: _/src/controllers/mysql/queries/postQueries.ts_
 
 Queries-file 2: _/src/controllers/mysql/queries/queries.ts_
 
- \
 Used for creating, retrieving and voting on post.
-
-
 
 *   **/post/**
     *   Post-method
     *   Creates a new Post to be inserted into the Database
+    
 *   **/post/vote**
     *   Post-method
     *   Used for voting on specific post
+    
 *   **/getPosts**
     *   Get-Method
     *   Returns all post as a JSON, based in the given id (number) and the amount of votes (number)
         *   If successful, returns status code 200
         *   If failure/error, returns status code 500
+        
 *   **/getVotes**
     *   Get-Method
     *   Returns all votes as a JSON, based in the given id (number) 
         *   If successful, returns status code 200
         *   If failure/error, returns status code 500
+        
 *   **/getCommentAmount**
     *   Get-Method
     *   Returns all votes as a JSON, based in the given id (number) 
         *   If successful, returns status code 200
         *   If failure/error, returns status code 500
+        
 *   **/post/get/all**
     *   Get-method
     *   Retrieves all the post and their associated users 
     *   Returns a json-element
+    
 *   **/post/unvote/id/:id**
     *   Delete-Method
     *   Method used for deleting a vote from a post.
+    
 *   **/post/get/all/commentamount**
     *   Get-method
     *   Retrieves all the post and their associated users 
     *   Also includes the amount (number) of comments made in the post
     *   Returns a json-element
+    
 *   **/post/get/byuser/id/:id**
     *   Get-method
     *   Returns all the post created by a specific user ID (number)
     *   Returns a json-element
+    
 *   **/post/get/byuser/id/:id**
     *   Get-method
     *   Returns all the post created by a specific user name (string)
     *   Returns a json-element
+    
 *   **/post/get/bytitle/:title**
     *   Get-method
     *   Returns the post by a specific post title (string)
     *   No room for spelling error
     *   Returns json-element
+    
 *   **/post/get/byid/:id**
     *   Returns the post by a specific post id (number)
     *   No room for spelling error
@@ -162,15 +169,13 @@ Used for creating, retrieving and voting on post.
 ##### 
 
 
-##### '/status'
+#### '/status'
 
 Api-File:_ /src/routes/statusApi.ts_
 
 Source-file: _/src/controllers/serverstatus.ts_
 
 See and set the server status
-
-
 
 *   **/status/**
     *   Get-method
@@ -180,6 +185,7 @@ See and set the server status
         *   Alive - 200
         *   Update - 503
         *   Down - 404
+        
 *   **/status/set**
     *   Post-method
     *   Set the server status
@@ -191,11 +197,10 @@ See and set the server status
         *   Return JSON-element `{"message": "Something went wrong!"}`
     *   Does not (currently) actually affect the actual operating status of the server.
 
-
 ##### 
 
 
-##### '/user'
+#### '/user'
 
 Api-File:_ /src/routes/userApi.ts_
 
@@ -203,33 +208,36 @@ Queries-file: _/src/controller/userQueries.ts_
 
 Retrieve information about the user(s) in Database
 
-
-
 *   **/user/get/byid/:id**
     *   Get-method
     *   Retrieve a specific user based on their user ID (number)
     *   Does not include the users password
     *   Returns as a JSON-element
+    
 *   **/user/get/all**
     *   Get-method
     *   Retrieves all users in the database
     *   Does not include their passwords
     *   Returns as a JSON-element
+    
 *   **/user/get/alladmin**
     *   Get-method
     *   Retrieves all users with the role of "Admin"
     *   Does not include the user(s) password
     *   Returns as a JSON-element
+    
 *   **/user/get/allmembers**
     *   Get-method
     *   Retrieves all users with the role of "member"
     *   Does not include the user(s) password
     *   Returns as a JSON-element
+    
 *   **/user/get/bykarma/above/:karma**
     *   Get-method
     *   Retrieves all the users with a karma level equal to or <span style="text-decoration:underline;">above</span> the given karma (number)
     *   Does not include the user(s) password
     *   Returns as a JSON-element
+    
 *   **/user/get/bykarma/below/:karma**
     *   Get-method
     *   Retrieves all the users with a karma level equal to or <span style="text-decoration:underline;">below</span> the given karma (number)
@@ -237,7 +245,7 @@ Retrieve information about the user(s) in Database
     *   Returns as a JSON-element
 
 
-##### '/postandcomments'
+#### '/postandcomments'
 
 Api-File:_ /src/routes/postAndCommentsApi.ts_
 
@@ -245,34 +253,34 @@ Queries-file: _/src/controller/postAndCommentsQueries.ts_
 
 Retrieves comments and post, based on user.
 
-
-
 *   **/postandcomments/get/byuser/name/:username**
     *   Get-method
     *   Retrieves all the post and comments based on the username (string)
     *   Comments and post does not include vote-stats or comment-stats
     *   Returns as a JSON-element
+    
 *   **/postandcomments/get/byuser/id/:userid**
     *   Get-method
     *   Retrieves all the post and comments based on the user id (number)
     *   Comments and post does not include vote-stats or comment-stats
     *   Returns as a JSON-element
+    
 *   **/postandcomments/get/bypost/id/:postid**
     *   Get-method
     *   Retrieves the post and comments, based on the post id (number)
     *   Comments and post does not include vote-stats or comment-stats
     *   Returns as a JSON-element
+    
 *   **/postandcomments/get/bypost/title/:posttitle**
     *   Get-method
     *   Retrieves the post and comments, based on the post title (string)
     *   Comments and post does not include vote-stats or comment-stats
     *   Returns as a JSON-element
 
-
 ##### 
 
 
-##### '/comments'
+#### '/comments'
 
 Api-File:_ /src/routes/commentsApi.ts_
 
@@ -280,26 +288,27 @@ Queries-file: _/src/controller/commentsQueries.ts_
 
 Retrieves all the comments.
 
-
-
 *   **/comments/get/all/withvote**
     *   Get-method
     *   Retrieves all the comments with votes
     *   Returns a JSON-element
+    
 *   **/comments/get/all**
     *   Get-method
     *   Retrieves all the comments in the Database
     *   Returns a JSON-element
+    
 *   **/comments/get/bypost/:id**
     *   Get-Method
     *   Retrieves all comments based on the given post id
+    
 *   **/comments/vote**
     *   Post-method
     *   Method for adding a vote to a comment
+    
 *   **/comments/unvote/id/:id**
     *   Delete-method
     *   Locates the vote in the database based on the given id (number) and deletes it.
-
 
 ##### 
 
@@ -310,33 +319,37 @@ Api-File:_ /src/routes/helge.ts_
 
 Used for handling all the "special" request by Helge and his simulator, though we are only interested in the Post method '/'.
 
-
-
-*   ** /helge/**
+*   **/helge/**
     *   Post-method
     *   Method for handling incoming data to be inserted into the Database
     *   Incoming data is handled in a PostObject named "tempPost"
+    
 *   **/helge/vote**
     *   Does nothing atm. in this context
+    
 *   **/helge/get/all**
     *   Get-method
     *   Returns all users and post as a JSON
+    
 *   **/helge/get/all/commentamount**
     *   Get-Method
     *   Returns all post with a commentAmount as a JSON
+    
 *   **/helge/get/byuser/id/:id**
     *   Get-method
     *   Returns all post by user id (number) as a JSON
+    
 *   **/helge/get/byuser/name/:name**
     *   Get-method
     *   Returns all post by user name (string) as a JSON
+    
 *   **/helge/get/bytitle/:title**
     *   Get-Method
     *   Returns post with the given title (string) as a JSON
+    
 *   **/helge/get/byid/:id**
     *   Get-Method
     *   Returns post based on the given id (number) as a JSON
-
 
 #### 
 
