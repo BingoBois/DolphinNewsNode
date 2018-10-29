@@ -34,37 +34,37 @@ The files for the routes API's can be found in the folder _/src/routes/_, while 
 
 These are the core API's for the backend:
 
-/
+*/*
 
-/latest
+*/latest*
 
-/auth
+*/auth*
 
-/post
+*/post*
 
-/status
+*/status*
 
-/user
+*/user*
 
-/postandcomments
+*/postandcomments*
 
-/comment
+*/comment*
 
-/helge
+*/helge*
 
 
 
 Below is a walkthrough of all the API's and their functionalities.
 
 
-#### '/' 
+## '/' 
 
 Api-File: _/src/routes/api.ts_
 
 Returns a basic string message, to quickly see if the server can provide a response
 
 
-#### '/latest' 
+## '/latest' 
 
 Api-File: _/src/routes/latestApi.ts_
 
@@ -73,7 +73,7 @@ Queries-file: _/src/controllers/mysql/queries/queries.ts_
 Returns the number/int of the latest successfully added post.
 
 
-#### '/auth'
+## '/auth'
 
 Api-File:_ /src/routes/auth.ts_
 
@@ -93,7 +93,7 @@ Used for authenticating and registering a user.
     *   Returns json {'message' : "Error"} if failed to register/create user.
 
 
-#### '/post'
+## '/post'
 
 Api-File:_ /src/routes/post.ts_
 
@@ -169,7 +169,7 @@ Used for creating, retrieving and voting on post.
 ##### 
 
 
-#### '/status'
+## '/status'
 
 Api-File:_ /src/routes/statusApi.ts_
 
@@ -200,7 +200,7 @@ See and set the server status
 ##### 
 
 
-#### '/user'
+## '/user'
 
 Api-File:_ /src/routes/userApi.ts_
 
@@ -245,7 +245,7 @@ Retrieve information about the user(s) in Database
     *   Returns as a JSON-element
 
 
-#### '/postandcomments'
+## '/postandcomments'
 
 Api-File:_ /src/routes/postAndCommentsApi.ts_
 
@@ -280,7 +280,7 @@ Retrieves comments and post, based on user.
 ##### 
 
 
-#### '/comments'
+## '/comments'
 
 Api-File:_ /src/routes/commentsApi.ts_
 
@@ -313,7 +313,7 @@ Retrieves all the comments.
 ##### 
 
 
-##### '/helge'
+## '/helge'
 
 Api-File:_ /src/routes/helge.ts_
 
