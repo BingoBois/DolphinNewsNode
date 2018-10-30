@@ -96,7 +96,7 @@ Api-File: _/src/routes/latestApi.ts_
 
 Queries-file: _/src/controllers/mysql/queries/queries.ts_
 
-Returns the number/int of the latest successfully added post.
+Returns the haness_id [number] of the latest successfully added post.
 
 
 ## '/auth'
