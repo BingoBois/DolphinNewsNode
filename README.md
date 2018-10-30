@@ -54,7 +54,7 @@ kubectl rollout undo deployment dolphin-frontend --to-revision=17
 
 ### Backend
 
-[http://80.240.24.203:3000/](http://80.240.24.203:3000/)
+[http://80.240.24.203:3000/](http://80.240.24.203:3000/) / [http://dolphin.viter.dk:3000](http://dolphin.viter.dk:3000)
 
 The files for the routes API's can be found in the folder _/src/routes/_, while the queries used in each API-file can be found in the folder _/src/controllers/mysql/queries/_. The handling and managing of the routes is set in _app.ts _which can be found in _/src/app.ts_ 
 
