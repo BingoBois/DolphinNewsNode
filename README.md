@@ -26,7 +26,7 @@ To run the project:
 # The system crashed, what do i do?
 
 ### 1.
-[Contact for SSH-Lpgin and Password]
+[Contact for SSH-Login and Password]
 
 ### 2. 
 kubectl get pods
