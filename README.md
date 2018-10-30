@@ -505,8 +505,7 @@ Please contact us in order to get access to the teams:
     *   The team opted for using HTTP during development and deployment, due to the configuration and hoopes needed to get HTTPS up and running through free services such as "Let's Encrypt" and "xip.io". The team recognize that setting up HTTPS would be crucial and important to the projects security, if it would ever be used for Live-production.
 
 -----
-***Original Documentation document: https://docs.google.com/document/d/1js5Vx5Y_EBHAWZZGPYC5kW4LwCBrb_e1Qx2xlP_ZxnI/edit#***
------
+
 Old info
 
 Uses typescript and mysql
