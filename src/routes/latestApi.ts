@@ -5,10 +5,9 @@ const router: Router = Router();
 
 //Get latestDigested
 router.get("/", (req, res) => {
-  latestDigestedPostNumber().then(resu =>
-    res.json({
-      message: resu
-    })).catch(e => {
+  latestDigestedPostNumber().then(result =>
+   res.send(result+"")
+    ).catch(e => {
       console.log(e)
     });
 
