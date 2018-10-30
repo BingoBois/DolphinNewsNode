@@ -8,7 +8,9 @@ router.get("/", (req, res) => {
   latestDigestedPostNumber().then(resu =>
     res.json({
       message: resu
-    }));
+    })).catch(e => {
+      console.log(e)
+    });
 
 })
 
