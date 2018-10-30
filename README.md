@@ -347,6 +347,7 @@ Used for handling all the "special" request by Helge and his simulator, though w
 
 *   **/helge/**
     *   Post-method
+    * 	Special method for handling Helge/Simulator data
     *   Method for handling incoming data to be inserted into the Database
     *   Incoming data is handled in a PostObject named "tempPost"
     
