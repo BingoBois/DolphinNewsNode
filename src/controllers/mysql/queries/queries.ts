@@ -191,10 +191,17 @@ export function countComment(postId: number){
 
 //Retrieves the latest (successfully) digested data
 export function latestDigestedPostNumber() {
-  return new Promise((resolve) => {
-      connection.query('SELECT * FROM post ORDER BY id DESC LIMIT 1', (error, results, fields) => {
-      let latestDigestedNumber = results[0].id;
-      resolve(latestDigestedNumber);
+  return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM post ORDER BY helge_id DESC LIMIT 1', (error, results, fields) => {
+        if(error){
+          reject(error)
+        }
+        if(results.length < 1){
+          resolve(0)
+        }else{
+          resolve(results[0].id);
+        }
+      
     })
   });
 }
