@@ -12,27 +12,47 @@ import { getPosts, vote, unVote, countComment, getPostVotes } from '../controlle
 const router: Router = Router();
  
 router.post('/', (req: Request, res: Response) => {
-  const tempPost: PostObject = req.body;
+  const tempPost: PostObject = {
+      id: -1,
+      hanesst_id: req.body.hanesst_id,
+      post_parent: req.body.post_parent,
+      post_text: req.body.post_text,
+      post_title: req.body.post_title,
+      post_type: req.body.post_type,
+      post_url: req.body.post_url,
+      pwd_hash: req.body.pwd_hash,
+      username: req.body.username,
+      time: ""
+  }
+  console.log(tempPost)
   // check if the given user exists before we let them post
-  getUser(tempPost.username, tempPost.pwd_hash).then((r: any) => {
-    // if it doesn't, we're gonna add them to the user pool
-    if (r === null) {
-      const tempUser: UserObject = {
-        username: tempPost.username,
-        email: tempPost.username,
-        password: tempPost.pwd_hash,
-        role: 'member',
-        karma: 0
+  getUser(tempPost.username, tempPost.pwd_hash).then(r => {
+      if(r){
+          console.log("User exists")
+          createPost(tempPost).then(r => {
+              res.statusCode = 200;
+                  res.json({
+                      message: "Success"
+                  })
+          }).catch(e => console.log(e))
+      }else{
+          let tempUser: UserObject = {
+              email: null,
+              karma: 0,
+              password: tempPost.pwd_hash,
+              role: "member",
+              username: tempPost.username
+          }
+          createUser(tempUser).then(r => {
+              createPost(tempPost).then(r => {
+                  res.statusCode = 200;
+                  res.json({
+                      message: "Success"
+                  })
+              }).catch(e => console.log(e))
+          }).catch(e => console.log("Error creating user" + e))
       }
-      createUser(tempUser).then((r) => {
-        // once the user is created, we create the post belonging to that user
-        createPost(tempPost);
-      })
-    } else {
-      //if user exists we post anyway, thanks chris
-      createPost(tempPost);
-    }
-  })
+  });
 });
  
 router.post('/vote', (req: Request, res: Response) => {
