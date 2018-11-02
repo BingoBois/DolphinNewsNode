@@ -17,12 +17,12 @@ export function selectAllComments(){
     })
   }
 
+  //Retrives all comments based on the ID
   export function selectAllCommentsFromPostId(postId: number){
     return new Promise((resolve) => {
       connection.query('SELECT `comment`.id ,`comment`.content, comment.time, comment.fk_user, user.username\
         FROM comment \
         LEFT JOIN user ON comment.fk_user=user.id \
-        JOIN vote_comment ON `vote_comment`.`fk_comment` \
         WHERE fk_post = ? \
         GROUP BY comment.id',
         [postId], (error, rows, fields) => {
@@ -31,6 +31,24 @@ export function selectAllComments(){
       });
     });
   }
+
+//Retrives only comments with votes!
+/* 
+  export function selectAllCommentsFromPostId(postId: number){
+    return new Promise((resolve) => {
+      connection.query('SELECT `comment`.id ,`comment`.content, comment.time, comment.fk_user, user.username\
+        FROM comment \
+        LEFT JOIN user ON comment.fk_user=user.id \
+         JOIN vote_comment ON `vote_comment`.`fk_comment` \
+        WHERE fk_post = ? \
+        GROUP BY comment.id',
+        [postId], (error, rows, fields) => {
+          let comments = rows;
+        resolve(rows);
+      });
+    });
+  }
+*/
 
   //Retrieves all the comments with (and only with) votes
   export function selectGetAllCommentsWithVotes() {
