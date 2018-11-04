@@ -427,7 +427,7 @@ Docker-Frontend: [https://hub.docker.com/r/dolphinnews/frontend/tags/](https://h
 
 You will need various information and files, in order to access the project's various droplets etc.
 
-Please contact us in order to get access to the teams:
+Please contact us in order to get access to the team's:
 
 *   Kubernetes
 *   Droplets
