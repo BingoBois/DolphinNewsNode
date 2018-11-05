@@ -131,7 +131,7 @@ export function unVote(voteId: string, vote_type: string) {
 
 export function getPosts(index: number, amount: number){
     return new Promise((resolve, reject) => {
-        connection.query('SELECT post.id, post.url, post.title, post.text, post.time, post.fk_user, user.username FROM post LEFT JOIN user ON post.fk_user=user.id LIMIT ?,?',
+        connection.query('SELECT post.id, post.url, post.title, post.text, post.time, post.fk_user, user.username, post.helge_id as hanesst_id  FROM post LEFT JOIN user ON post.fk_user=user.id LIMIT ?,?',
         [index, amount],
         (error, results, fields) => {
             if (error != null) {
