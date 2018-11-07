@@ -231,7 +231,6 @@ export function latestDigestedPostNumber() {
         if(results.length < 1){
           resolve(0)
         }else{
-          console.log( results);
           resolve(results[0].hanesst_id);
         }
       
