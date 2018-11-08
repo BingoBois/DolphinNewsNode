@@ -5,12 +5,15 @@ const router: Router = Router();
 
 //Get latestDigested
 router.get("/", (req, res) => {
-  latestDigestedPostNumber().then(result =>
-   res.send(`${result}`)
-    ).catch(e => {
-      console.log(e)
-    });
-
+  latestDigestedPostNumber().then((result: any) =>{
+      if(result.lastCommentId > result.lastPostId){
+        res.statusCode = 200
+        res.json(`${result.lastCommentId}`);
+      }else if(result.lastPostId > result.lastCommentId){
+        res.statusCode = 200
+        res.send(`${result.lastPostId}`);
+      }
+  }).catch(e => res.send(e))
 })
 
 export const latestApi: Router = router;
