@@ -37,6 +37,37 @@ export function createPost(postObject: PostObject) {
 
 }
 
+//Used for creating new post/stories and comments from the Frontend!
+export function createNonHelgePost(postObject: PostObject) {
+  return new Promise((resolve, reject) => {
+    switch (postObject.post_type) {
+      case 'story': {
+
+        console.log("Creating NonHelge-post...")
+        connection.query('INSERT INTO post (title, url, time, helge_id, fk_user) VALUES (?, ?, ?, ?, (SELECT id FROM user WHERE username = ?))',
+        [postObject.post_title, postObject.post_url, new Date(), postObject.hanesst_id, postObject.username],
+        (error, results, fields) => {
+          resolve(results);
+        });
+        break;
+      }
+      case 'comment': {
+        console.log("Creating NonHelge-comment...")
+        connection.query('INSERT INTO comment (content, time, helge_id, fk_user, fk_post) VALUES (?, ?, ?, (SELECT id FROM user WHERE username = ?), ?)',
+        [postObject.post_text, new Date(), postObject.hanesst_id, postObject.username, postObject.post_parent],
+        (error, results, fields) => {
+          resolve(results);
+        });
+        break;
+      }
+      default: {
+        reject('Invalid post_type');
+      }
+    }
+  });
+
+}
+
 export function createUser(userObject: UserObject) {
   const hash = crypto.
     createHmac('sha256', secret).
@@ -131,7 +162,7 @@ export function unVote(voteId: string, vote_type: string) {
 
 export function getPosts(index: number, amount: number){
     return new Promise((resolve, reject) => {
-        connection.query('SELECT post.id, post.url, post.title, post.text, post.time, post.fk_user, user.username FROM post LEFT JOIN user ON post.fk_user=user.id LIMIT ?,?',
+        connection.query('SELECT post.id, post.url, post.title, post.text, post.time, post.fk_user, user.username, post.helge_id as hanesst_id  FROM post LEFT JOIN user ON post.fk_user=user.id LIMIT ?,?',
         [index, amount],
         (error, results, fields) => {
             if (error != null) {
@@ -192,14 +223,15 @@ export function countComment(postId: number){
 //Retrieves the latest (successfully) digested data
 export function latestDigestedPostNumber() {
   return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM post ORDER BY helge_id DESC LIMIT 1', (error, results, fields) => {
+    
+      connection.query('SELECT MAX(helge_id) as hanesst_id FROM (SELECT helge_id FROM post UNION SELECT helge_id FROM comment) as table3;', (error, results, fields) => {
         if(error){
           reject(error)
         }
         if(results.length < 1){
           resolve(0)
         }else{
-          resolve(results[0].id);
+          resolve(results[0].hanesst_id);
         }
       
     })
