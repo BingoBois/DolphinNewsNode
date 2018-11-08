@@ -1,9 +1,9 @@
 import mysql, { Connection } from 'mysql';
 
 let connection: Connection = mysql.createConnection({
-    host: '108.61.211.164',
+    host: '173.249.8.120',
     user: 'dolphin',
-    password: 'bingoboy',
+    password: 'mingade',
     database: 'dolphinnews'
 });
 
