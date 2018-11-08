@@ -224,7 +224,7 @@ export function countComment(postId: number){
 export function latestDigestedPostNumber() {
   return new Promise((resolve, reject) => {
     
-      connection.query('SELECT MAX(helge_id) as hanesst_id FROM (SELECT helge_id FROM post UNION SELECT helge_id FROM comment) as table3;', (error, results, fields) => {
+      connection.query('SELECT * FROM post ORDER BY helge_id DESC LIMIT 1;', (error, results, fields) => {
         if(error){
           reject(error)
         }
