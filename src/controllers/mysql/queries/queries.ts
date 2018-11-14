@@ -173,13 +173,13 @@ export function vote(vote: Vote) {
     });
 }
 
-export function unVote(voteId: string, vote_type: string) {
+export function unVote(userId: number, postOrCommentId: number, vote_type: string) {
     return new Promise((resolve, reject) => {
         switch (vote_type) {
             case "comment":
                 connection.query(
-                    "DELETE FROM vote_comment WHERE id=?",
-                    [voteId],
+                    "DELETE FROM vote_comment WHERE fk_user=? AND fk_comment=?",
+                    [userId, postOrCommentId],
                     (error, results, fields) => {
                         if (error !== null) {
                             reject(error);
@@ -190,8 +190,8 @@ export function unVote(voteId: string, vote_type: string) {
                 break;
             case "post":
                 connection.query(
-                    "DELETE FROM vote_post WHERE id=?",
-                    [voteId],
+                    "DELETE FROM vote_post WHERE fk_user=? AND fk_post=?",
+                    [userId, postOrCommentId],
                     (error, results, fields) => {
                         if (error !== null) {
                             reject(error);

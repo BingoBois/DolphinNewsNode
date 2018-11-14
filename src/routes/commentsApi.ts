@@ -29,11 +29,12 @@ router.post('/vote', (req: Request, res: Response) => {
   tempVote.amount = 1;
   vote(tempVote);
 });
- 
-router.delete('/unvote/id/:id', (req: Request, res: Response) => {
-  const id = req.params.id;
+
+router.delete('/unvote/userId/:userId/commentId/:commentId', (req: Request, res: Response) => {
+  const userId = req.params.userId;
+  const commentId = req.params.commentId;
   const vote_type = 'comment';
-  unVote(id, vote_type);
+  unVote(userId, commentId, vote_type);
 });
  
 export const commentsApi: Router = router;

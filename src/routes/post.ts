@@ -108,10 +108,11 @@ router.post('/vote', (req: Request, res: Response) => {
 });
  
  
-router.delete('/unvote/id/:id', (req: Request, res: Response) => {
-  const id = req.params.id;
+router.delete('/unvote/userId/:userId/postId/:postId', (req: Request, res: Response) => {
+  const userId = req.params.userId;
+  const postId = req.params.postId;
   const vote_type = 'post';
-  unVote(id, vote_type);
+  unVote(userId, postId, vote_type);
 });
  
 router.post('/getPosts', (req: Request, res: Response) => {
