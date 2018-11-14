@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
 import { selectAllComments, selectGetAllCommentsWithVotes, selectAllCommentsFromPostId } from '../controllers/mysql/queries/commentsQueries';
-import { vote, unVote } from '../controllers/mysql/queries/queries';
+import { vote, unVote } from '../controllers/mysql/queries/voteQueries';
 import VoteObject from '../types/vote';
 const router: Router = Router();
 

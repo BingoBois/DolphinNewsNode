@@ -8,7 +8,8 @@ import {
     , selectUserIdFromPost, selectUsernameFromPosts, showPostVotes
 }
     from '../controllers/mysql/queries/postQueries';
-import { getPosts, vote, unVote, countComment, getPostVotes } from '../controllers/mysql/queries/queries'
+import { getPosts, countComment, getPostVotes } from '../controllers/mysql/queries/queries'
+import { vote, unVote } from '../controllers/mysql/queries/voteQueries'
 
 
 const router: Router = Router();
