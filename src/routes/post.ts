@@ -9,7 +9,7 @@ import {
 }
     from '../controllers/mysql/queries/postQueries';
 import { getPosts, countComment, getPostVotes } from '../controllers/mysql/queries/queries'
-import { vote, unVote } from '../controllers/mysql/queries/voteQueries'
+import { vote, unVote, selectAllPostVotesByUserId } from '../controllers/mysql/queries/voteQueries'
 
 
 const router: Router = Router();
@@ -118,7 +118,7 @@ router.post('/vote', (req: Request, res: Response) => {
         })
 });
 
-// API-endpoint for deleting a post vote - recieves a user ID and a post ID as params in the URL and forwards these to "unvote" in voteQueries.ts
+// API-endpoint for deleting a post vote - recieves an user ID and an post ID as params in the URL and forwards these to "unvote" in voteQueries.ts
 router.delete('/unvote/userId/:userId/postId/:postId', (req: Request, res: Response) => {
     const userId = req.params.userId;
     const postId = req.params.postId;
@@ -132,6 +132,13 @@ router.delete('/unvote/userId/:userId/postId/:postId', (req: Request, res: Respo
             })
         })
 });
+
+// API-endpoint for getting all post votes for a specific user - recieves an user ID as param in the URL, forwards it to "selectAllPostVotesByUserId" in voteQueries.ts and gets a list of all votes in return
+router.get('/get/all/votes/userId/:userId', (req, res) => {
+    const userId = req.params.userId;
+    selectAllPostVotesByUserId(userId)
+        .then(result => res.json(result));
+})
 
 router.post('/getPosts', (req: Request, res: Response) => {
     console.log("Getting posts amount " + req.body.index)
