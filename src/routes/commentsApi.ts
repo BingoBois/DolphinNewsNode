@@ -23,6 +23,7 @@ router.get('/get/bypost/:id', (req: Request, res: Response) => {
   })
 });
 
+// API-endpoint for voting a comment - recieves a vote in the request body and forwards it to "vote" in voteQueries.ts
 router.post('/vote', (req: Request, res: Response) => {
   const tempVote: VoteObject = req.body;
   tempVote.vote_type = 'comment';
@@ -37,6 +38,7 @@ router.post('/vote', (req: Request, res: Response) => {
     })
 });
 
+// API-endpoint for deleting a comment vote - recieves a user ID and a comment ID as params in the URL and forwards these to "unvote" in voteQueries.ts
 router.delete('/unvote/userId/:userId/commentId/:commentId', (req: Request, res: Response) => {
   const userId = req.params.userId;
   const commentId = req.params.commentId;

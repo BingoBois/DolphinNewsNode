@@ -1,6 +1,7 @@
 import connection from '../connection';
 import Vote from "../../../types/vote";
 
+// Adds a vote (given as param) in the DB - can be both post vote and comment vote
 export function vote(vote: Vote) {
     return new Promise((resolve, reject) => {
         switch (vote.vote_type) {
@@ -32,6 +33,7 @@ export function vote(vote: Vote) {
     });
 }
 
+// Removes a user's post vote or comment vote from the DB
 export function unVote(userId: number, postOrCommentId: number, vote_type: string) {
     return new Promise((resolve, reject) => {
         switch (vote_type) {

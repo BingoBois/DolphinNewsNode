@@ -103,6 +103,7 @@ router.post('/nonhelge', (req: Request, res: Response) => {
     });
 });
 
+// API-endpoint for voting a post - recieves a vote in the request body and forwards it to "vote" in voteQueries.ts
 router.post('/vote', (req: Request, res: Response) => {
     const tempVote: VoteObject = req.body;
     tempVote.vote_type = 'post';
@@ -117,6 +118,7 @@ router.post('/vote', (req: Request, res: Response) => {
         })
 });
 
+// API-endpoint for deleting a post vote - recieves a user ID and a post ID as params in the URL and forwards these to "unvote" in voteQueries.ts
 router.delete('/unvote/userId/:userId/postId/:postId', (req: Request, res: Response) => {
     const userId = req.params.userId;
     const postId = req.params.postId;
