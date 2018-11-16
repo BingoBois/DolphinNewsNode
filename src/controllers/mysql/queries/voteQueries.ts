@@ -65,16 +65,16 @@ export function unVote(userId: number, postOrCommentId: number, vote_type: strin
     });
 }
 
-// Returns all the post votes for a specific user - found by user ID (given as param)
-export function selectAllPostVotesByUserId(userId: number) {
+// Returns all voted post IDs for a specific user - found by user ID (given as param)
+export function selectAllVotedPostIdsByUserId(userId: number) {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM vote_post WHERE fk_user=?',
+        connection.query('SELECT fk_post FROM vote_post WHERE fk_user=?',
             [userId], (error, results, fields) => {
                 if (error != null) {
                     reject(error)
                 }
-                const allVotes = results;
-                resolve(allVotes);
+                const allPostIds = results;
+                resolve(allPostIds);
             })
     })
 }

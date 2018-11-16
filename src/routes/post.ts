@@ -9,7 +9,7 @@ import {
 }
     from '../controllers/mysql/queries/postQueries';
 import { getPosts, countComment, getPostVotes } from '../controllers/mysql/queries/queries'
-import { vote, unVote, selectAllPostVotesByUserId } from '../controllers/mysql/queries/voteQueries'
+import { vote, unVote, selectAllVotedPostIdsByUserId } from '../controllers/mysql/queries/voteQueries'
 
 
 const router: Router = Router();
@@ -133,11 +133,22 @@ router.delete('/unvote/userId/:userId/postId/:postId', (req: Request, res: Respo
         })
 });
 
-// API-endpoint for getting all post votes for a specific user - recieves an user ID as param in the URL, forwards it to "selectAllPostVotesByUserId" in voteQueries.ts and gets a list of all votes in return
-router.get('/get/all/votes/userId/:userId', (req, res) => {
+// API-endpoint for getting post IDs for all voted posts for a specific user - recieves an user ID as param in the URL, forwards it to "selectAllPostVotesByUserId" in voteQueries.ts and gets a list with post IDs of all voted posts in return
+router.get('/get/all/postIds/userId/:userId', (req, res) => {
     const userId = req.params.userId;
-    selectAllPostVotesByUserId(userId)
-        .then(result => res.json(result));
+    let postIds: Array<number> = [];
+    selectAllVotedPostIdsByUserId(userId)
+        //@ts-ignore
+        .then(result => result.forEach(element => {
+            postIds.push(element.fk_post);
+        }))
+        .then(() => res.json(postIds))
+        .catch((e) => {
+            res.statusCode = 500;
+            res.json({
+                error: 500
+            })
+        });
 })
 
 router.post('/getPosts', (req: Request, res: Response) => {
