@@ -12,6 +12,7 @@ import bodyParser = require("body-parser");
 import { postRouter } from "./routes/post";
 const app = express();
 import { SetServerStatus } from './controllers/serverstatus';
+import { logError } from './controllers/elastic/logger';
 import cors from 'cors';
 
 // Settings
@@ -20,11 +21,20 @@ app.set('json spaces', 40); // Pretify
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(bodyParser.json());
+app.use(function (error: any, req: any, res: any, next: any) {
+  if (error) {
+    logError(error, 500);
+    res.status(500).json({ message: error, error: 500 });
+  } else {
+    next();
+  }
+});
+
 
 // Routes
 app.use('/', api);
-app.use(bodyParser.json());
 app.use('/latest', latestApi);
 app.use('/auth', authRouter);
 app.use('/post', postRouter)
