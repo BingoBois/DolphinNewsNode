@@ -79,6 +79,20 @@ export function selectAllVotedPostIdsByUserId(userId: number) {
     })
 }
 
+// Returns all voted comment IDs for a specific user - found by user ID (given as param)
+export function selectAllVotedCommentIdsByUserId(userId: number) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT fk_comment FROM vote_comment WHERE fk_user=?',
+            [userId], (error, results, fields) => {
+                if (error !== null) {
+                    reject(error)
+                }
+                const allCommentIds = results;
+                resolve(allCommentIds);
+            })
+    })
+}
+
 export function closeConnection() {
     connection.end();
 }

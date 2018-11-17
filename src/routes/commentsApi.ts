@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express'
 import { selectAllComments, selectGetAllCommentsWithVotes, selectAllCommentsFromPostId } from '../controllers/mysql/queries/commentsQueries';
-import { vote, unVote } from '../controllers/mysql/queries/voteQueries';
+import { vote, unVote, selectAllVotedCommentIdsByUserId } from '../controllers/mysql/queries/voteQueries';
 import VoteObject from '../types/vote';
 const router: Router = Router();
 
@@ -52,5 +52,23 @@ router.delete('/unvote/userId/:userId/commentId/:commentId', (req: Request, res:
       })
     })
 });
+
+// API-endpoint for getting post IDs for all voted comments for a specific user - recieves an user ID as param in the URL, forwards it to "selectAllVotedCommentIdsByUserId" in voteQueries.ts and gets a list with comment IDs of all voted comments in return
+router.get('/get/all/commentIds/userId/:userId', (req, res) => {
+  const userId = req.params.userId;
+  let commentIds: Array<number> = [];
+  selectAllVotedCommentIdsByUserId(userId)
+    //@ts-ignore
+    .then(result => result.forEach(element => {
+      commentIds.push(element.fk_comment);
+    }))
+    .then(() => res.json(commentIds))
+    .catch((e) => {
+      res.statusCode = 500;
+      res.json({
+        error: 500
+      })
+    });
+})
 
 export const commentsApi: Router = router;
