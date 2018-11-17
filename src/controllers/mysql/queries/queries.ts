@@ -125,16 +125,19 @@ export function getUser(username: string, password: string) {
         .createHmac("sha256", secret)
         .update(password)
         .digest("hex");
-    console.log(hash);
     return new Promise((resolve, reject) => {
         connection.query(
             "SELECT * FROM user where username=? AND password=?",
             [username, hash],
             (error, results, fields) => {
-                if (error != null) {
+                if (error !== null) {
                     reject(error);
                 }
-                resolve(results[0]);
+                const user = results[0];
+                if (user === undefined) {
+                    reject(user)
+                }
+                resolve(user);
             }
         );
     });
