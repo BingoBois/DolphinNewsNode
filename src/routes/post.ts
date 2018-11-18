@@ -65,6 +65,9 @@ router.post('/', (req: Request, res: Response) => {
         res.status(500).json({ message: err, error: 500 });
       });
     }
+  }).catch((err) => {
+    logError(err, 500);
+    res.status(500).json({ message: err, error: 500 });
   });
 });
 

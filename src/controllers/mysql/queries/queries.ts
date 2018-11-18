@@ -7,6 +7,10 @@ const secret = "mingade85";
 
 export function createPost(postObject: PostObject) {
   return new Promise((resolve, reject) => {
+    if(!postObject){
+      return reject("Undefined Post Object")
+    }
+
     switch (postObject.post_type) {
       case "story": {
         console.log("Creating post...");
@@ -43,7 +47,7 @@ export function createPost(postObject: PostObject) {
         break;
       }
       default: {
-        reject("Invalid post_type");
+      return  reject("Invalid post_type");
       }
     }
   });
@@ -88,7 +92,7 @@ export function createNonHelgePost(postObject: PostObject) {
         break;
       }
       default: {
-        reject("Invalid post_type");
+        return reject("Invalid post_type");
       }
     }
   });
@@ -112,15 +116,18 @@ export function createUser(userObject: UserObject) {
       ],
       (error, results, fields) => {
         if (error != null) {
-          reject(error);
+          return reject(error);
         }
-        resolve(results);
+          resolve(results);
+        
+        
       }
     );
   });
 }
 
 export function getUser(username: string, password: string) {
+
   const hash = crypto
     .createHmac("sha256", secret)
     .update(password)
@@ -132,9 +139,11 @@ export function getUser(username: string, password: string) {
       [username, hash],
       (error, results, fields) => {
         if (error != null) {
-          reject(error);
-        }
-        resolve(results[0]);
+          return reject(error);
+        } 
+          resolve(results[0]);
+        
+        
       }
     );
   });
@@ -147,7 +156,7 @@ export function getPosts(index: number, amount: number) {
       [index, amount],
       (error, results, fields) => {
         if (error != null) {
-          reject(error);
+         return reject(error);
         }
         const parsedPost = results.map((item: any) => {
           return parsePostObject(item);
@@ -182,9 +191,11 @@ export function getPostVotes(postId: number) {
       [postId],
       (error, results, fields) => {
         if (error != null) {
-          reject(error);
+         return  reject(error);
         }
-        resolve(results[0]);
+          resolve(results[0]);
+        
+        
       }
     );
   });
@@ -197,9 +208,10 @@ export function countComment(postId: number) {
       [postId],
       (error, results, fields) => {
         if (error != null) {
-          reject(error);
+          return reject(error);
         }
         resolve(results[0]);
+      
       }
     );
   });
@@ -213,12 +225,12 @@ export async function latestDigestedPostNumber() {
       [],
       (error, results, fields) => {
         if (error != null) {
-          reject(error);
+          return reject(error);
         }
         if (results && results.length > 0) {
           resolve(results[0]);
         } else {
-          reject(0);
+         return reject(0);
         }
       }
     );
