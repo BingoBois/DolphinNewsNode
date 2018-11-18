@@ -7,7 +7,7 @@ export function logError(errorMessage: string, errorCode: number){
     body: {
       "ErrorMessage": JSON.stringify(errorMessage),
       "ErrorCode": errorCode,
-      "Time": new Date().toString()
+      "Time": new Date()
     }
   }, (err: any, resp: any) => {
     if(err){
@@ -22,7 +22,7 @@ export function logMessage(message: string){
     type: 'statusmessage',
     body: {
       "Message": message,
-      "Time": new Date().toString()
+      "Time": new Date()
     }
   }, (err: any, resp: any) => {
     console.log(resp);
