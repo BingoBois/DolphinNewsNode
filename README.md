@@ -12,6 +12,7 @@ To run the project:
 
 
 
+
 *   Open a Terminal
 *   Type "npm install" 
     *   To install all modules and dependencies
