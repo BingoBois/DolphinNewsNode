@@ -1,7 +1,7 @@
 import mysql, { Connection } from 'mysql';
 
 let connection: Connection = mysql.createConnection({
-    host: '173.249.8.120',
+    host: '',
     user: 'dolphin',
     password: 'mingade',
     database: 'dolphinnews'

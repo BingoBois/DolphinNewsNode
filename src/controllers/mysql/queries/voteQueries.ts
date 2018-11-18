@@ -11,7 +11,7 @@ export function vote(vote: Vote) {
                     [vote.amount, vote.fk_user, vote.fk_comment],
                     (error, results, fields) => {
                         if (error !== null) {
-                            reject(error);
+                            return reject(error);
                         }
                         resolve(results);
                     }
@@ -23,7 +23,7 @@ export function vote(vote: Vote) {
                     [vote.amount, vote.fk_user, vote.fk_post],
                     (error, results, fields) => {
                         if (error !== null) {
-                            reject(error);
+                            return reject(error);
                         }
                         resolve(results);
                     }
@@ -43,7 +43,7 @@ export function unVote(userId: number, postOrCommentId: number, vote_type: strin
                     [userId, postOrCommentId],
                     (error, results, fields) => {
                         if (error !== null) {
-                            reject(error);
+                            return reject(error);
                         }
                         resolve(results);
                     }
@@ -55,7 +55,7 @@ export function unVote(userId: number, postOrCommentId: number, vote_type: strin
                     [userId, postOrCommentId],
                     (error, results, fields) => {
                         if (error !== null) {
-                            reject(error);
+                            return reject(error);
                         }
                         resolve(results);
                     }
