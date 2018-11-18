@@ -11,7 +11,7 @@ export function vote(vote: Vote) {
                     [vote.amount, vote.fk_user, vote.fk_comment],
                     (error, results, fields) => {
                         if (error !== null) {
-                            reject(error);
+                            return reject(error);
                         }
                         resolve(results);
                     }
@@ -23,7 +23,7 @@ export function vote(vote: Vote) {
                     [vote.amount, vote.fk_user, vote.fk_post],
                     (error, results, fields) => {
                         if (error !== null) {
-                            reject(error);
+                            return reject(error);
                         }
                         resolve(results);
                     }
@@ -43,7 +43,7 @@ export function unVote(userId: number, postOrCommentId: number, vote_type: strin
                     [userId, postOrCommentId],
                     (error, results, fields) => {
                         if (error !== null) {
-                            reject(error);
+                            return reject(error);
                         }
                         resolve(results);
                     }
@@ -55,7 +55,7 @@ export function unVote(userId: number, postOrCommentId: number, vote_type: strin
                     [userId, postOrCommentId],
                     (error, results, fields) => {
                         if (error !== null) {
-                            reject(error);
+                            return reject(error);
                         }
                         resolve(results);
                     }
@@ -70,8 +70,8 @@ export function selectAllVotedPostIdsByUserId(userId: number) {
     return new Promise((resolve, reject) => {
         connection.query('SELECT fk_post FROM vote_post WHERE fk_user=?',
             [userId], (error, results, fields) => {
-                if (error != null) {
-                    reject(error)
+                if (error !== null) {
+                    return reject(error)
                 }
                 const allPostIds = results;
                 resolve(allPostIds);
@@ -85,7 +85,7 @@ export function selectAllVotedCommentIdsByUserId(userId: number) {
         connection.query('SELECT fk_comment FROM vote_comment WHERE fk_user=?',
             [userId], (error, results, fields) => {
                 if (error !== null) {
-                    reject(error)
+                    return reject(error)
                 }
                 const allCommentIds = results;
                 resolve(allCommentIds);

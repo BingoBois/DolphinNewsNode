@@ -7,7 +7,9 @@ const router: Router = Router();
 router.get("/", (req, res) => {
   latestDigestedPostNumber().then((result: any) =>{
       res.send(`${Math.max(result.lastCommentId, result.lastPostId)}`);
-  }).catch(e => res.send(0))
+  }).catch(e => {
+    res.send('' + 0)
+  })
 })
 
 export const latestApi: Router = router;
