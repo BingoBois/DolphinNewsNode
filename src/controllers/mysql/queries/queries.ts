@@ -215,10 +215,10 @@ export async function latestDigestedPostNumber() {
         if (error != null) {
           reject(error);
         }
-        if (results.length > 0) {
+        if (results && results.length > 0) {
           resolve(results[0]);
         } else {
-          resolve(0);
+          reject(0);
         }
       }
     );
