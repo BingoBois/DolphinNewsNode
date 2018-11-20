@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express'
-import { selectAllComments, selectGetAllCommentsWithVotes, selectAllCommentsFromPostId } from '../controllers/mysql/queries/commentsQueries';
+import { selectAllComments, selectGetAllCommentsWithVotes, selectAllCommentsFromPostId, createNonHelgeComment } from '../controllers/mysql/queries/commentsQueries';
 import { vote, unVote, selectAllVotedCommentIdsByUserId } from '../controllers/mysql/queries/voteQueries';
 import VoteObject from '../types/vote';
 import { logError } from '../controllers/elastic/logger';
@@ -70,12 +70,29 @@ router.get('/get/all/commentIds/userId/:userId', (req, res) => {
       commentIds.push(element.fk_comment);
     }))
     .then(() => res.json(commentIds))
-    .catch((e) => {
-      res.statusCode = 500;
-      res.json({
-        error: 500
-      })
+    .catch((err) => {
+      logError(err, 500);
+      res.status(500).json({ message: err, error: 500 });
     });
 })
+
+// API-endpoint for posting new comments from the frontend
+router.post('/nonhelge', (req: Request, res: Response) => {
+  const tempComment = {
+    userId: req.body.userId,
+    parentPostId: req.body.parentPostId,
+    commentText: req.body.commentText,
+  }
+  createNonHelgeComment(tempComment)
+    .then(() => {
+      res.statusCode = 200;
+      res.json({
+        message: "Success"
+      });
+    }).catch((err) => {
+      logError(err, 500);
+      res.status(500).json({ message: err, error: 500 });
+    });
+});
 
 export const commentsApi: Router = router;

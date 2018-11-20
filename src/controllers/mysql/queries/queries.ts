@@ -53,51 +53,6 @@ export function createPost(postObject: PostObject) {
   });
 }
 
-//Used for creating new post/stories and comments from the Frontend!
-export function createNonHelgePost(postObject: PostObject) {
-  return new Promise((resolve, reject) => {
-    switch (postObject.post_type) {
-      case "story": {
-        console.log("Creating NonHelge-post...");
-        connection.query(
-          "INSERT INTO post (title, url, time, helge_id, fk_user) VALUES (?, ?, ?, ?, (SELECT id FROM user WHERE username = ?))",
-          [
-            postObject.post_title,
-            postObject.post_url,
-            new Date(),
-            postObject.hanesst_id,
-            postObject.username
-          ],
-          (error, results, fields) => {
-            resolve(results);
-          }
-        );
-        break;
-      }
-      case "comment": {
-        console.log("Creating NonHelge-comment...");
-        connection.query(
-          "INSERT INTO comment (content, time, helge_id, fk_user, fk_post) VALUES (?, ?, ?, (SELECT id FROM user WHERE username = ?), ?)",
-          [
-            postObject.post_text,
-            new Date(),
-            postObject.hanesst_id,
-            postObject.username,
-            postObject.post_parent
-          ],
-          (error, results, fields) => {
-            resolve(results);
-          }
-        );
-        break;
-      }
-      default: {
-        return reject("Invalid post_type");
-      }
-    }
-  });
-}
-
 export function createUser(userObject: UserObject) {
   const hash = crypto
     .createHmac("sha256", secret)

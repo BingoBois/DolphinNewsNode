@@ -2,10 +2,10 @@ import { Request, Response, Router } from 'express'
 import { PostObject } from '../types/post'
 import VoteObject from '../types/vote'
 import UserObject from '../types/user'
-import { createUser, getUser, createPost, createNonHelgePost } from '../controllers/mysql/queries/queries'
+import { createUser, getUser, createPost } from '../controllers/mysql/queries/queries'
 import {
   selectPostsFromId, selectAllUsersAndPosts, selectPostsFromTitle, showPostCommentAmount
-  , selectUserIdFromPost, selectUsernameFromPosts, showPostVotes
+  , selectUserIdFromPost, selectUsernameFromPosts, showPostVotes, createNonHelgePost
 }
   from '../controllers/mysql/queries/postQueries';
 import { getPosts, countComment, getPostVotes } from '../controllers/mysql/queries/queries'
@@ -71,59 +71,31 @@ router.post('/', (req: Request, res: Response) => {
   });
 });
 
-//Used for posting new Stories and comments from the Frontend, in which the hanesst_id is set to 0 from the frontend
-router.post('/nonhelge', (req: Request, res: Response) => {
-  const tempPost: PostObject = {
-    id: -1,
-    hanesst_id: req.body.hanesst_id,
-    post_parent: req.body.post_parent,
-    post_text: req.body.post_text,
-    post_title: req.body.post_title,
-    post_type: req.body.post_type,
-    post_url: req.body.post_url,
-    pwd_hash: req.body.pwd_hash,
-    username: req.body.username,
-    time: ""
-  }
-  console.log(tempPost)
-  // check if the given user exists before we let them post
-  getUser(tempPost.username, tempPost.pwd_hash).then(r => {
-    if (r) {
-      console.log("User exists")
-      createNonHelgePost(tempPost).then(r => {
-        res.statusCode = 200;
-        res.json({
-          message: "Success"
-        })
-      }).catch((err) => {
-        logError(err, 500);
-        res.status(500).json({ message: err, error: 500 });
-      });
-    } else {
-      let tempUser: UserObject = {
-        email: null,
-        karma: 0,
-        password: tempPost.pwd_hash,
-        role: "member",
-        username: tempPost.username
-      }
-      createUser(tempUser).then(r => {
-        createNonHelgePost(tempPost).then(r => {
-          res.statusCode = 200;
-          res.json({
-            message: "Success"
-          })
-        }).catch((err) => {
-          logError(err, 500);
-          res.status(500).json({ message: err, error: 500 });
-        });
-      }).catch((err) => {
-        logError(err, 500);
-        res.status(500).json({ message: err, error: 500 });
-      });
-    }
-  });
-});
+// //Used for posting new posts from the Frontend, in which the hanesst_id is set to 0 from the frontend
+// router.post('/nonhelge', (req: Request, res: Response) => {
+//   const tempPost: PostObject = {
+//     id: -1,
+//     hanesst_id: req.body.hanesst_id,
+//     post_parent: req.body.post_parent,
+//     post_text: req.body.post_text,
+//     post_title: req.body.post_title,
+//     post_type: req.body.post_type,
+//     post_url: req.body.post_url,
+//     pwd_hash: req.body.pwd_hash,
+//     username: req.body.username,
+//     time: ""
+//   }
+//   console.log(tempPost)
+//   // check if the given user exists before we let them post
+//   getUser(tempPost.username, tempPost.pwd_hash).then(r => {
+//     createNonHelgePost(tempPost).then(r => {
+//       res.statusCode = 200;
+//       res.json({
+//         message: "Success"
+//       })
+//     })
+//   });
+// });
 
 // API-endpoint for voting a post - recieves a vote in the request body and forwards it to "vote" in voteQueries.ts
 router.post('/vote', (req: Request, res: Response) => {
