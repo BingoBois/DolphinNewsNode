@@ -71,15 +71,15 @@ export function selectGetAllCommentsWithVotes() {
 }
 
 // Used for creating a new comment (from the Frontend) on an existing post
-export function createNonHelgeComment(comment: any) {
+export function createNonHelgeComment(commentObject: any) {
   return new Promise((resolve, reject) => {
     connection.query(
       "INSERT INTO comment (content, time, helge_id, fk_user, fk_post) VALUES (?, ?, 0, ?, ?)",
       [
-        comment.commentText,
+        commentObject.commentText,
         new Date(),
-        comment.userId,
-        comment.parentPostId
+        commentObject.userId,
+        commentObject.parentPostId
       ],
       (error, results, fields) => {
         if (error !== null) {

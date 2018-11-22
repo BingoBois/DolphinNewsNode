@@ -71,31 +71,25 @@ router.post('/', (req: Request, res: Response) => {
   });
 });
 
-// //Used for posting new posts from the Frontend, in which the hanesst_id is set to 0 from the frontend
-// router.post('/nonhelge', (req: Request, res: Response) => {
-//   const tempPost: PostObject = {
-//     id: -1,
-//     hanesst_id: req.body.hanesst_id,
-//     post_parent: req.body.post_parent,
-//     post_text: req.body.post_text,
-//     post_title: req.body.post_title,
-//     post_type: req.body.post_type,
-//     post_url: req.body.post_url,
-//     pwd_hash: req.body.pwd_hash,
-//     username: req.body.username,
-//     time: ""
-//   }
-//   console.log(tempPost)
-//   // check if the given user exists before we let them post
-//   getUser(tempPost.username, tempPost.pwd_hash).then(r => {
-//     createNonHelgePost(tempPost).then(r => {
-//       res.statusCode = 200;
-//       res.json({
-//         message: "Success"
-//       })
-//     })
-//   });
-// });
+// API-endpoint for posting new posts from the frontend
+router.post('/nonhelge', (req: Request, res: Response) => {
+  const tempPost = {
+    userId: req.body.userId,
+    postTitle: req.body.postTitle,
+    postURL: req.body.postURL,
+    postText: req.body.postText,
+  }
+  createNonHelgePost(tempPost)
+    .then(() => {
+      res.statusCode = 200;
+      res.json({
+        message: "Success"
+      });
+    }).catch(err => {
+      logError(err, 500);
+      res.status(500).json({ message: err, error: 500 });
+    });
+});
 
 // API-endpoint for voting a post - recieves a vote in the request body and forwards it to "vote" in voteQueries.ts
 router.post('/vote', (req: Request, res: Response) => {

@@ -38,25 +38,27 @@ export function showPostVotes() {
   })
 }
 
-// // Used for creating a new post from the Frontend
-// export function createNonHelgePost(postObject: PostObject) {
-//   return new Promise((resolve, reject) => {
-//     console.log("Creating NonHelge-post...");
-//     connection.query(
-//       "INSERT INTO post (title, url, time, helge_id, fk_user) VALUES (?, ?, ?, ?, (SELECT id FROM user WHERE username = ?))",
-//       [
-//         postObject.post_title,
-//         postObject.post_url,
-//         new Date(),
-//         postObject.hanesst_id,
-//         postObject.username
-//       ],
-//       (error, results, fields) => {
-//         resolve(results);
-//       }
-//     );
-//   });
-// }
+// Used for creating a new post from the Frontend
+export function createNonHelgePost(postObject: any) {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      "INSERT INTO post (title, text, url, time, helge_id, fk_user) VALUES (?, ?, ?, ?, 0, ?)",
+      [
+        postObject.postTitle,
+        postObject.postText,
+        postObject.postURL,
+        new Date(),
+        postObject.userId
+      ],
+      (error, results, fields) => {
+        if (error !== null) {
+          return reject(error)
+        }
+        resolve(results);
+      }
+    );
+  });
+}
 
 //Display all users and corensponding post
 export function selectAllUsersAndPosts() {
