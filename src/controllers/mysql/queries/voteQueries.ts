@@ -23,7 +23,7 @@ export function vote(vote: Vote) {
                     [vote.amount, vote.fk_user, vote.fk_post],
                     (error, results, fields) => {
                         if (error !== null) {
-                            return reject(error);
+                            reject(error);
                         }
                         resolve(results);
                     }
@@ -43,7 +43,7 @@ export function unVote(userId: number, postOrCommentId: number, vote_type: strin
                     [userId, postOrCommentId],
                     (error, results, fields) => {
                         if (error !== null) {
-                            return reject(error);
+                            reject(error);
                         }
                         resolve(results);
                     }
@@ -55,7 +55,7 @@ export function unVote(userId: number, postOrCommentId: number, vote_type: strin
                     [userId, postOrCommentId],
                     (error, results, fields) => {
                         if (error !== null) {
-                            return reject(error);
+                            reject(error);
                         }
                         resolve(results);
                     }
@@ -63,6 +63,34 @@ export function unVote(userId: number, postOrCommentId: number, vote_type: strin
                 break;
         }
     });
+}
+
+// Returns all voted post IDs for a specific user - found by user ID (given as param)
+export function selectAllVotedPostIdsByUserId(userId: number) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT fk_post FROM vote_post WHERE fk_user=?',
+            [userId], (error, results, fields) => {
+                if (error !== null) {
+                    reject(error)
+                }
+                const allPostIds = results;
+                resolve(allPostIds);
+            })
+    })
+}
+
+// Returns all voted comment IDs for a specific user - found by user ID (given as param)
+export function selectAllVotedCommentIdsByUserId(userId: number) {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT fk_comment FROM vote_comment WHERE fk_user=?',
+            [userId], (error, results, fields) => {
+                if (error !== null) {
+                   reject(error)
+                }
+                const allCommentIds = results;
+                resolve(allCommentIds);
+            })
+    })
 }
 
 export function closeConnection() {

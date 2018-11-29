@@ -7,7 +7,7 @@ export function selectFromName(name: string) {
     return new Promise((resolve, reject) => {
       connection.query('SELECT * FROM user WHERE username = ?', [name], (error, results, fields) => {
         if(error != null){
-          return reject(error)
+          reject(error)
         }
         let id = results[0].id;
         resolve(id);
@@ -20,7 +20,7 @@ export function selectFromName(name: string) {
     return new Promise((resolve, reject) =>{
       connection.query('SELECT id,username,email,karma,role FROM user WHERE id =?', [id], (error, results, fields) => {
         if(error != null){
-          return reject(error)
+          reject(error)
         }
         let user = results;
         resolve(user);
@@ -33,7 +33,7 @@ export function selectFromName(name: string) {
     return new Promise((resolve, reject) =>{
       connection.query('SELECT id,username,email,karma,role FROM user WHERE karma >=?', [karma], (error, results, fields) => {
         if(error != null){
-          return reject(error)
+          reject(error)
         }
         let user = results;
         resolve(user);
@@ -46,7 +46,7 @@ export function selectFromName(name: string) {
     return new Promise((resolve, reject) =>{
       connection.query('SELECT id,username,email,karma,role FROM user WHERE karma <=?', [karma], (error, results, fields) => {
         if(error != null){
-          return reject(error)
+           reject(error)
         }
         let user = results;
         resolve(user);
@@ -59,7 +59,7 @@ export function selectFromName(name: string) {
     return new Promise((resolve, reject)=>{
       connection.query('SELECT id,username,email,karma,role from user', (error, results, fields)=>{
         if(error != null){
-          return reject(error)
+         reject(error)
         }
         let users = results;
         resolve(users);
@@ -73,7 +73,7 @@ export function selectFromName(name: string) {
     return new Promise((resolve, reject)=>{
       connection.query('SELECT id,username,email,karma,role from user WHERE role ="admin"', (error, results, fields)=>{
         if(error != null){
-          return reject(error)
+         reject(error)
         }
         let admins = results;
         resolve(admins);
@@ -87,7 +87,7 @@ export function selectFromName(name: string) {
     return new Promise((resolve, reject)=>{
       connection.query('SELECT id,username,email,karma,role from user WHERE role ="member"', (error, results, fields)=>{
         if(error != null){
-          return reject(error)
+           reject(error)
         }
         let members = results;
         resolve(members);

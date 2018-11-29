@@ -7,7 +7,7 @@ const secret = "mingade85";
 
 export function createPost(postObject: PostObject) {
   return new Promise((resolve, reject) => {
-    if(!postObject){
+    if (!postObject) {
       return reject("Undefined Post Object")
     }
 
@@ -47,52 +47,7 @@ export function createPost(postObject: PostObject) {
         break;
       }
       default: {
-      return  reject("Invalid post_type");
-      }
-    }
-  });
-}
-
-//Used for creating new post/stories and comments from the Frontend!
-export function createNonHelgePost(postObject: PostObject) {
-  return new Promise((resolve, reject) => {
-    switch (postObject.post_type) {
-      case "story": {
-        console.log("Creating NonHelge-post...");
-        connection.query(
-          "INSERT INTO post (title, url, time, helge_id, fk_user) VALUES (?, ?, ?, ?, (SELECT id FROM user WHERE username = ?))",
-          [
-            postObject.post_title,
-            postObject.post_url,
-            new Date(),
-            postObject.hanesst_id,
-            postObject.username
-          ],
-          (error, results, fields) => {
-            resolve(results);
-          }
-        );
-        break;
-      }
-      case "comment": {
-        console.log("Creating NonHelge-comment...");
-        connection.query(
-          "INSERT INTO comment (content, time, helge_id, fk_user, fk_post) VALUES (?, ?, ?, (SELECT id FROM user WHERE username = ?), ?)",
-          [
-            postObject.post_text,
-            new Date(),
-            postObject.hanesst_id,
-            postObject.username,
-            postObject.post_parent
-          ],
-          (error, results, fields) => {
-            resolve(results);
-          }
-        );
-        break;
-      }
-      default: {
-        return reject("Invalid post_type");
+        reject("Invalid post_type");
       }
     }
   });
@@ -116,37 +71,38 @@ export function createUser(userObject: UserObject) {
       ],
       (error, results, fields) => {
         if (error != null) {
-          return reject(error);
+          reject(error);
         }
-          resolve(results);
-        
-        
+        resolve(results);
+
+
       }
     );
   });
 }
 
 export function getUser(username: string, password: string) {
-
   const hash = crypto
     .createHmac("sha256", secret)
     .update(password)
     .digest("hex");
-  console.log(hash);
   return new Promise((resolve, reject) => {
     connection.query(
       "SELECT * FROM user where username=? AND password=?",
       [username, hash],
       (error, results, fields) => {
-        if (error != null) {
-          return reject(error);
-        } 
-          resolve(results[0]);
-        
-        
+        if (error !== null) {
+           reject(error);
+        }
+        const user = results[0];
+        if (user === undefined) {
+          reject(user)
+        }
+        resolve(user);
       }
     );
   });
+
 }
 
 export function getPosts(index: number, amount: number) {
@@ -156,7 +112,7 @@ export function getPosts(index: number, amount: number) {
       [index, amount],
       (error, results, fields) => {
         if (error != null) {
-         return reject(error);
+          return reject(error);
         }
         const parsedPost = results.map((item: any) => {
           return parsePostObject(item);
@@ -191,11 +147,11 @@ export function getPostVotes(postId: number) {
       [postId],
       (error, results, fields) => {
         if (error != null) {
-         return  reject(error);
+          reject(error);
         }
-          resolve(results[0]);
-        
-        
+        resolve(results[0]);
+
+
       }
     );
   });
@@ -208,10 +164,10 @@ export function countComment(postId: number) {
       [postId],
       (error, results, fields) => {
         if (error != null) {
-          return reject(error);
+          reject(error);
         }
         resolve(results[0]);
-      
+
       }
     );
   });
@@ -230,7 +186,7 @@ export async function latestDigestedPostNumber() {
         if (results && results.length > 0) {
           resolve(results[0]);
         } else {
-         return reject(0);
+           reject(0);
         }
       }
     );

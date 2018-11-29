@@ -12,7 +12,7 @@ export function selectAllContentByUsername(username:string){
     'where user.username =?'
     , [username],(error, results, fields) =>{
       if(error != null){
-        return reject(error)
+        reject(error)
       }
       let post_and_comments_byuser_name = results;
       resolve(post_and_comments_byuser_name)
@@ -30,7 +30,7 @@ export function selectAllContentByUserId(userid:number){
     'where user.id =?'
     , [userid],(error, results, fields) =>{
       if(error != null){
-        return reject(error)
+       reject(error)
       }
       let post_and_comments_byuser_id = results;
       resolve(post_and_comments_byuser_id)
@@ -48,7 +48,7 @@ export function selectAllContentByUserId(userid:number){
     'where post.id =?'
     , [postid],(error, results, fields) =>{
       if(error != null){
-        return reject(error)
+        reject(error)
       }
       let post_and_comments_bypost_id = results;
       resolve(post_and_comments_bypost_id)
@@ -66,7 +66,7 @@ export function selectAllContentByUserId(userid:number){
     'where post.title =?'
     , [postTitle],(error, results, fields) =>{
       if(error != null){
-        return reject(error)
+        reject(error)
       }
       let post_and_comments_bypost_title = results;
       resolve(post_and_comments_bypost_title)
