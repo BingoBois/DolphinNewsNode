@@ -12,7 +12,7 @@ export function showPostCommentAmount() {
       + ' GROUP BY post.id'
       , (error, results, fields) => {
         if (error != null) {
-          return reject(error)
+          reject(error)
         }
         let usersAndPost = results;
         resolve(usersAndPost);
@@ -30,7 +30,7 @@ export function showPostVotes() {
       + ' GROUP BY vote_post.fk_post'
       , (error, results, fields) => {
         if (error != null) {
-          return reject(error)
+          reject(error)
         }
         let usersAndPost = results;
         resolve(usersAndPost);
@@ -52,7 +52,7 @@ export function createNonHelgePost(postObject: any) {
       ],
       (error, results, fields) => {
         if (error !== null) {
-          return reject(error)
+          reject(error)
         }
         resolve(results);
       }
@@ -66,7 +66,7 @@ export function selectAllUsersAndPosts() {
     connection.query('SELECT user.id as userId, user.username AS userName, post.id as postId, post.title AS post_title, post.text as post_text, post.url as post_url, post.time as postTime, post.helge_id as hanesst_id FROM user JOIN post ON user.id = post.fk_user'
       , (error, results, fields) => {
         if (error != null) {
-          return reject(error)
+          reject(error)
         }
         let usersAndPost = results;
         resolve(usersAndPost);
@@ -80,7 +80,7 @@ export function selectUserIdFromPost(id: number) {
     connection.query('SELECT user.id as userId, user.username AS userName, post.id as postId, post.title AS post_title, post.text as post_text, post.url as post_url, post.time as postTime, post.helge_id as hanesst_id FROM user JOIN post ON user.id = post.fk_user WHERE user.id =?'
       , [id], (error, results, fields) => {
         if (error != null) {
-          return reject(error)
+          reject(error)
         }
         let userAndPost = results;
         resolve(userAndPost);
@@ -94,7 +94,7 @@ export function selectUsernameFromPosts(name: string) {
     connection.query('SELECT user.id as userId, user.username AS userName, post.id as postId,post.title AS post_title, post.text as post_text, post.url as post_url, post.time as postTime, post.helge_id as hanesst_id FROM user JOIN post ON user.id = post.fk_user WHERE user.username =?'
       , [name], (error, results, fields) => {
         if (error != null) {
-          return reject(error)
+          reject(error)
         }
         let userAndPost = results;
         resolve(userAndPost);
@@ -108,7 +108,7 @@ export function selectPostsFromTitle(title: string) {
     connection.query('SELECT user.id as userId, user.username AS userName, post.id as postId, post.title AS post_title, post.text as post_text, post.url as post_url, post.helge_id as hanesst_id FROM user JOIN post ON user.id = post.fk_user WHERE post.title =?'
       , [title], (error, results, fields) => {
         if (error != null) {
-          return reject(error)
+          reject(error)
         }
         let PostByTitle = results;
         resolve(PostByTitle);
@@ -122,7 +122,7 @@ export function selectPostsFromId(postID: number) {
     connection.query('SELECT  user.id as userID, user.username AS userName, post.id as postId, post.title AS post_title, post.text as post_text, post.url as post_url, post.helge_id as hanesst_id FROM user JOIN post ON user.id = post.fk_user WHERE post.id =?'
       , [postID], (error, results, fields) => {
         if (error != null) {
-          return reject(error)
+          reject(error)
         }
         let PostByTitle = results;
         resolve(PostByTitle);
