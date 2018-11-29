@@ -47,7 +47,7 @@ export function createPost(postObject: PostObject) {
         break;
       }
       default: {
-        return reject("Invalid post_type");
+        reject("Invalid post_type");
       }
     }
   });
@@ -92,7 +92,7 @@ export function getUser(username: string, password: string) {
       [username, hash],
       (error, results, fields) => {
         if (error !== null) {
-          return reject(error);
+           reject(error);
         }
         const user = results[0];
         if (user === undefined) {
@@ -147,7 +147,7 @@ export function getPostVotes(postId: number) {
       [postId],
       (error, results, fields) => {
         if (error != null) {
-          return reject(error);
+          reject(error);
         }
         resolve(results[0]);
 
@@ -164,7 +164,7 @@ export function countComment(postId: number) {
       [postId],
       (error, results, fields) => {
         if (error != null) {
-          return reject(error);
+          reject(error);
         }
         resolve(results[0]);
 
@@ -186,7 +186,7 @@ export async function latestDigestedPostNumber() {
         if (results && results.length > 0) {
           resolve(results[0]);
         } else {
-          return reject(0);
+           reject(0);
         }
       }
     );
