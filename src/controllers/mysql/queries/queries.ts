@@ -71,7 +71,7 @@ export function createUser(userObject: UserObject) {
       ],
       (error, results, fields) => {
         if (error != null) {
-          return reject(error);
+          reject(error);
         }
         resolve(results);
 
