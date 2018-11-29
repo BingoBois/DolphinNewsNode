@@ -12,7 +12,7 @@ export function selectAllComments() {
       + ' join post ON post.`id` = comment.`fk_post`'
       , (error, results, fields) => {
         if (error !== null) {
-          return reject(error)
+          reject(error)
         }
         let allComments = results;
         resolve(allComments)
@@ -31,7 +31,7 @@ export function selectAllCommentsFromPostId(postId: number) {
         GROUP BY comment.id',
       [postId], (error, rows, fields) => {
         if (error !== null) {
-          return reject(error)
+          reject(error)
         }
         let comments = rows;
         resolve(rows);
@@ -63,7 +63,7 @@ export function selectGetAllCommentsWithVotes() {
     connection.query('Select vote_comment.`fk_comment` as commentId, comment.`content` as commentContent, user.`username` as userName, SUM(vote_comment.amount) as votesCount, post.id as postId, post.url as post_url from vote_comment, post.helge_id as hanesst_id join comment on comment.`id` = vote_comment.fk_comment join user on comment.`fk_user` = user.`id` join post on comment.`fk_post` = post.id GROUP BY vote_comment.fk_comment', (error, results, fields) => {
       let allComments = results;
       if (error !== null) {
-        return reject(error)
+        reject(error)
       }
       resolve(allComments);
     })
@@ -83,7 +83,7 @@ export function createNonHelgeComment(commentObject: any) {
       ],
       (error, results, fields) => {
         if (error !== null) {
-          return reject(error)
+          reject(error)
         }
         resolve(results);
       }
